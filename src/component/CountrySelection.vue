@@ -12,7 +12,6 @@
   >
     <template v-slot:option="scope">
       <div class="flex items-center q-pa-xs mdi-border-bottom no-wrap" v-bind="scope.itemProps">
-        <!-- <q-img :src="getIconSrc(scope.opt.iso2)" width="30px" height="100%" fit="contain" no-spinner no-native-menu /> -->
         <span :class="[ 'v3q_tel__flag', scope.opt.iso2.toLowerCase() ]"></span>
         <span class="q-ml-sm text-no-wrap">(+{{ scope.opt.dialCode }})</span>
         <span class="q-ml-sm text-no-wrap ellipsis">{{ scope.opt.name }}</span>
@@ -25,9 +24,6 @@
         v-if="scope.opt"
         style="min-height:unset;"
       >
-        <!-- <q-item-section avatar style="min-width:unset;" class="q-pr-sm"> -->
-          <!-- <q-img height="100%" width="40px" :src="getIconSrc(scope.opt.iso2)" fit="contain" no-spinner no-native-menu /> -->
-        <!-- </q-item-section> -->
         <div class="flex items-center no-wrap">
           <span :class="[ 'v3q_tel__flag q-mr-sm', scope.opt.iso2.toLowerCase() ]"></span>
           <span class="ellipsis text-no-wrap" v-html="`+${scope.opt.dialCode}`"></span>
@@ -59,9 +55,16 @@ import { Options, Vue } from 'vue-class-component'
 import { Model, Prop } from 'vue-property-decorator'
 import countries, { filterCountries } from './countries'
 import { Country } from './types'
+import { QSelect, QIcon, QSeparator, QInput } from 'quasar'
 
 @Options({
   name: 'country-selection',
+  components: {
+    QSelect,
+    QIcon,
+    QSeparator,
+    QInput,
+  },
   emits: [
     'countryChanged',
   ],
@@ -78,7 +81,7 @@ export default class CountrySelection extends Vue {
   countryOptions: Country[] = []
 
   declare $refs: {
-    input: any
+    input: QInput
   }
 
   mounted () {
