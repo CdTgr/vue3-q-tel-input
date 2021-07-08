@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        "strict": true,
+        "declaration": true,
+        "noImplicitAny": true,
+        "declarationDir": "dist",
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "importHelpers": true,
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "sourceMap": true,
+        "baseUrl": ".",
+        "types": [
+            "node",
+            "vue"
+        ],
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        },
+        "lib": [
+            "esnext",
+            "dom",
+            "dom.iterable",
+            "scripthost"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+        "dist",
+        "dev"
+    ]
+}

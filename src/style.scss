@@ -1,0 +1,19 @@
+.vue3-q-tel-input {
+  &.no-inherit-feedback, .no-inherit-feedback {
+    &.q-field--highlighted {
+      .q-field__inner {
+        .q-field__inner {
+          .q-field__control {
+            &::after { display: none; }
+          }
+        }
+      }
+    }
+  }
+  
+  &.no-feedback, .no-feedback {
+    .q-field__control {
+      &::after { display: none; }
+    }
+  }
+}
