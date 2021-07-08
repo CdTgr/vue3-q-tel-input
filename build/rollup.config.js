@@ -15,6 +15,7 @@ import typescript from 'rollup-plugin-typescript2';
 import scss from 'rollup-plugin-scss';
 import { uglify } from 'rollup-plugin-uglify';
 import ignore from 'rollup-plugin-ignore';
+import copy from 'rollup-plugin-copy';
 
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs.readFileSync('./.browserslistrc')
@@ -76,6 +77,11 @@ const baseConfig = {
       // Process all `<style>` blocks except `<style module>`.
       PostCSS({ include: /(?<!&module=.*)\.css$/ }),
       uglify(),
+      copy({
+        targets: [
+          { src: 'src/component/assets/*' , dest: 'dist/assets' }
+        ]
+      }),
       commonjs(),
     ],
     babel: {
