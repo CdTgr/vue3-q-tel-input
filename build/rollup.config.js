@@ -16,6 +16,7 @@ import scss from 'rollup-plugin-scss';
 import { uglify } from 'rollup-plugin-uglify';
 import ignore from 'rollup-plugin-ignore';
 import copy from 'rollup-plugin-copy';
+import image from '@rollup/plugin-image'
 
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs.readFileSync('./.browserslistrc')
@@ -82,6 +83,7 @@ const baseConfig = {
           { src: 'src/component/assets/*' , dest: 'dist/assets' }
         ]
       }),
+      image(),
       commonjs(),
     ],
     babel: {
