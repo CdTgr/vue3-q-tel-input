@@ -72,6 +72,7 @@ import { QSelect, QInput, QIcon, QItem, QItemSection, QImg, QSeparator, QItemLab
     QImg,
     QSeparator,
     QItemLabel,
+    QInput
   },
   emits: [
     'countryChanged',
