@@ -56,17 +56,22 @@
 
 <script lang="ts">
 import { PropType } from '@vue/runtime-core'
-import { QInput } from 'quasar'
 import { Options, Vue } from 'vue-class-component'
 import { Model, Prop } from 'vue-property-decorator'
 import countries, { filterCountries } from './countries'
 import { Country } from './types'
-import { QSelect } from 'quasar'
+import { QSelect, QInput, QIcon, QItem, QItemSection, QImg, QSeparator, QItemLabel } from 'quasar'
 
 @Options({
   name: 'country-selection',
   components: {
     QSelect,
+    QIcon,
+    QItem,
+    QItemSection,
+    QImg,
+    QSeparator,
+    QItemLabel,
   },
   emits: [
     'countryChanged',
