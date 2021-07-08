@@ -66,5 +66,6 @@
     "node": ">=12"
   },
   "sideEffects": false,
+  "license": "MIT",
   "types": "vue3-q-tel-input.d.ts"
 }
