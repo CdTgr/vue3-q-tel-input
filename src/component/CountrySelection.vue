@@ -12,11 +12,7 @@
   >
     <template v-slot:option="scope">
       <div class="flex items-center q-pa-xs mdi-border-bottom" v-bind="scope.itemProps">
-        <q-img
-          :src="getIconSrc(scope.opt.iso2)"
-          height="20px" width="20px"
-          fit="contain"
-        />
+        <q-img :src="getIconSrc(scope.opt.iso2)" width="30px" height="100%" fit="contain" no-spinner no-native-menu />
         <span class="q-ml-sm">(+{{ scope.opt.dialCode }})</span>
         <span class="q-ml-sm">{{ scope.opt.name }}</span>
       </div>
@@ -30,7 +26,7 @@
         style="min-height:unset;"
       >
         <q-item-section avatar style="min-width:unset;" class="q-pr-sm">
-          <q-img height="20px" width="20px" :src="getIconSrc(scope.opt.iso2)" />
+          <q-img height="100%" width="40px" :src="getIconSrc(scope.opt.iso2)" fit="contain" no-spinner no-native-menu />
         </q-item-section>
         <q-item-section>
           <q-item-label class="ellipsis" v-html="`+${scope.opt.dialCode}`" />
@@ -88,6 +84,9 @@ export default class CountrySelection extends Vue {
   @Prop({ type: String, default: () => 'Search' })
   searchText!: string
 
+  @Prop({ type: String, default: () => './assets/country/' })
+  path!: string
+
   search_text: string = ''
   countryOptions: Country[] = []
 
@@ -105,8 +104,13 @@ export default class CountrySelection extends Vue {
     this.countryOptions = needle === '' ? [ ...countries ] : filterCountries(needle)
   }
 
+  private getPath (): string {
+    if (this.path.lastIndexOf('/') === this.path.length - 1) return this.path
+    return `${this.path}/`
+  }
+
   getIconSrc (src: string) {
-    return require(`./assets/country/${src.trim().toLowerCase()}.png`)
+    return require(`${this.getPath()}${src.trim().toLowerCase()}.png`)
   }
 
   countryChanged (val: Country) {

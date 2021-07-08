@@ -44,9 +44,10 @@ All the props that are supported in [quasr input](https://quasar.dev/vue-compone
 | tel | string or number | The telephone value | `v-model:tel="telephone_number"` |
 
 #### Props
-| Prop | Type | Description |
-| ---- | ---- | --- |
-| required | Boolean | Shows error validation when the field is empty |
-| searchText | String  | The label for the search field inside the country dropdown |
-| defaultCountry | String | The default country to load. eg: us, ae, in etc. |
-| dropdownOptions | Obejct | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |
+| Prop | Type | Required | Description |
+| ---- | ---- | ---- | ---- |
+| required | Boolean | No | Shows error validation when the field is empty |
+| searchText | String | No | The label for the search field inside the country dropdown |
+| defaultCountry | String | No | The default country to load. eg: us, ae, in etc. |
+| path | String | No | The path to get the flag icons ( must be png images ) eg: `/sample/image/` |
+| dropdownOptions | Obejct | No | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |

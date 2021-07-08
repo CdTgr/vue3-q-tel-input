@@ -12,6 +12,7 @@
         :searchText="searchText"
         v-model:country="country"
         @countryChanged="countryChanged()"
+        :path="path"
         v-bind="dropdownOptions"
         class="no-border-field-before no-padding-field font-reduced-input-adon"
       />
@@ -56,6 +57,9 @@ export default class Vue3QTelInput extends Vue {
 
   @Prop({ type: String, default: () => 'us' })
   defaultCountry!: string
+
+  @Prop({ type: String, default: () => './assets/country/' })
+  path!: string
   
   country: Country = getDefault()
   old_country!: Country
