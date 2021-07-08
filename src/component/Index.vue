@@ -12,6 +12,7 @@
         :searchText="searchText"
         v-model:country="country"
         @countryChanged="countryChanged()"
+        v-bind="dropdownOptions"
         class="no-border-field-before no-padding-field font-reduced-input-adon"
       />
     </template>
@@ -49,6 +50,9 @@ export default class Vue3QTelInput extends Vue {
 
   @Prop({ type: String, default: () => 'Search' })
   searchText!: string
+
+  @Prop({ type: Object, default: () => ({}) })
+  dropdownOptions!: any
   
   country: Country = getDefault()
   number: string = ''

@@ -1,7 +1,7 @@
 ### VUE3-Q-TEL-INPUT
 ---
 
-The plugin was made over Vue3 with considering the [Qasar Frameork](https://quasar.dev/). The plugin provides auto country detection on user inputs as well as dropdown for country which supports search by name, country code and country phone code.
+The plugin was made over Vue3 with considering the [Qasar Frameork v2.X](https://quasar.dev/). The plugin provides auto country detection on user inputs as well as dropdown for country which supports search by name, country code and country phone code.
 
 Contributers are welcome.
 
@@ -37,3 +37,15 @@ All the props that are supported in [quasr input](https://quasar.dev/vue-compone
 ```
 <vue3-q-tel-input v-model:tel="tel" dense outlined />
 ```
+
+#### Model
+| Prop | Type | Description | Usage |
+| ---- | ---- | ---- | ---- |
+| tel | string or number | The telephone value | `v-model:tel="telephone_number"` |
+
+#### Props
+| Prop | Type | Description |
+| ---- | ---- | --- |
+| required | Boolean | Shows error validation when the field is empty |
+| searchText | String  | The label for the search field inside the country dropdown |
+| dropdownOptions | Obejct | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |

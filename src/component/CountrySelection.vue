@@ -7,6 +7,8 @@
     class="no-inherit-feedback no-feedback v3-q-tel-input--country"
     @update:model-value="countryChanged"
     @popup-hide="search_text=''"
+    :menu-offset="[ 12, 0 ]"
+    v-bind="$props"
   >
     <template v-slot:option="scope">
       <div class="flex items-center q-pa-xs mdi-border-bottom" v-bind="scope.itemProps">
