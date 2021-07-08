@@ -53,6 +53,9 @@ export default class Vue3QTelInput extends Vue {
 
   @Prop({ type: Object, default: () => ({}) })
   dropdownOptions!: any
+
+  @Prop({ type: String, default: () => 'us' })
+  defaultCountry!: string
   
   country: Country = getDefault()
   number: string = ''
@@ -63,6 +66,10 @@ export default class Vue3QTelInput extends Vue {
   @Watch('tel', { immediate: true })
   telModelChanged () {
     this.setPhone()
+  }
+
+  mounted () {
+    this.country = getDefault(this.defaultCountry)
   }
 
   private getNumber (instance: PhoneNumber): string {

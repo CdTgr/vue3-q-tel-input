@@ -2,7 +2,7 @@
   <div id="app">
     <div class="row">
       <div class="col-3 offset-3 q-mt-lg">
-        <vue3-q-tel-input v-model:tel="input" searchText="Search using code/country" dense filled />
+        <vue3-q-tel-input v-model:tel="input" searchText="Search using code/country" dense filled :defaultCountry="'ae'" />
       </div>
     </div>
     <div>
