@@ -49,5 +49,5 @@ All the props that are supported in [quasr input](https://quasar.dev/vue-compone
 | required | Boolean | No | Shows error validation when the field is empty |
 | searchText | String | No | The label for the search field inside the country dropdown |
 | defaultCountry | String | No | The default country to load. eg: us, ae, in etc. |
-| path | String | No | The path to get the flag icons ( must be png images ) eg: `/sample/image/` |
+| path | String | No | The path to get the flag icons ( must be `png` images ) eg: `https://abc.xyz/image/counties/` |
 | dropdownOptions | Obejct | No | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |

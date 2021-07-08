@@ -84,7 +84,7 @@ export default class CountrySelection extends Vue {
   @Prop({ type: String, default: () => 'Search' })
   searchText!: string
 
-  @Prop({ type: String, default: () => './assets/country/' })
+  @Prop({ type: String, default: () => '' })
   path!: string
 
   search_text: string = ''
@@ -105,6 +105,7 @@ export default class CountrySelection extends Vue {
   }
 
   private getPath (): string {
+    if (! this.path) return './'
     if (this.path.lastIndexOf('/') === this.path.length - 1) return this.path
     return `${this.path}/`
   }
@@ -115,7 +116,8 @@ export default class CountrySelection extends Vue {
       new URL(path)
       return path
     } catch {}
-    return require(path)
+    if (path.indexOf('.') === 0) return require(`./assets/country/${src.trim().toLowerCase()}.png`)
+    return path
   }
 
   countryChanged (val: Country) {

@@ -9,6 +9,12 @@
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
   },
+  "keywords": [
+    "vue3", "vue-3", "vue 3", "Vue3", "Vue 3", "Quasar", "Quasar V2", "Quasar Framework", "Quasar Framweork V3",
+    "Country", "Input", "Country Input", "Telephone", "Tel Input", "Telephon Input", "International Number", "International",
+    "Phone Number", "Phone", "q-tel", "q-tel-input", "Q Tel", "Q Tel Input", "Quasar telephone", "Quasar Telephone Input",
+    "Quasar Phone Number", "Quasar Phone", "Quasar Phone Number Input", "Vue Phone Number", "Vue Phone Input", "Vue Phone International"
+  ],
   "main": "dist/vue3-q-tel-input.ssr.js",
   "module": "dist/vue3-q-tel-input.esm.js",
   "browser": "dist/vue3-q-tel-input.esm.js",

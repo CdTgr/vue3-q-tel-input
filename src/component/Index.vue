@@ -58,7 +58,7 @@ export default class Vue3QTelInput extends Vue {
   @Prop({ type: String, default: () => 'us' })
   defaultCountry!: string
 
-  @Prop({ type: String, default: () => './assets/country/' })
+  @Prop({ type: String, default: () => '' })
   path!: string
   
   country: Country = getDefault()
