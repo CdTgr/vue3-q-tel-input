@@ -43,7 +43,7 @@
           @update:model-value="performSearch"
           dense outlined
           :label="searchText"
-          class="bg-white no-border-field-before no-padding-field font-reduced-input-adon"
+          class="bg-white"
         >
           <template v-slot:prepend>
             <q-icon name="search" />
