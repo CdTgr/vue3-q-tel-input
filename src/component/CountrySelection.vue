@@ -110,7 +110,12 @@ export default class CountrySelection extends Vue {
   }
 
   getIconSrc (src: string) {
-    return require(`${this.getPath()}${src.trim().toLowerCase()}.png`)
+    const path = `${this.getPath()}${src.trim().toLowerCase()}.png`
+    try {
+      new URL(path)
+      return path
+    } catch {}
+    return require(path)
   }
 
   countryChanged (val: Country) {
