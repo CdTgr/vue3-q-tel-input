@@ -58,6 +58,7 @@ export default class Vue3QTelInput extends Vue {
   defaultCountry!: string
   
   country: Country = getDefault()
+  old_country!: Country
   number: string = ''
   has_error: boolean = false
   prev_value: string = '01234567890123456789'
@@ -66,6 +67,13 @@ export default class Vue3QTelInput extends Vue {
   @Watch('tel', { immediate: true })
   telModelChanged () {
     this.setPhone()
+  }
+
+  @Watch('country', { immediate: true })
+  countryChangedWatch () {
+    this.$nextTick(() => {
+      this.old_country = this.country
+    })
   }
 
   mounted () {
@@ -116,8 +124,8 @@ export default class Vue3QTelInput extends Vue {
 
   countryChanged (val?: string, force?: boolean) {
     this.prev_value = '01234567890123456789'
-    const value = (force ? (val || ''): (val || this.tel).toString()).trim()
-    this.phoneChanged(value)
+    const value = (force ? (val || '') : (val || this.tel).toString()).trim()
+    this.phoneChanged(value.replace(`+${this.old_country.dialCode}`, `+${this.country.dialCode}`))
   }
 
 }
