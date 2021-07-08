@@ -11,27 +11,28 @@
     v-bind="$props"
   >
     <template v-slot:option="scope">
-      <div class="flex items-center q-pa-xs mdi-border-bottom" v-bind="scope.itemProps">
-        <q-img :src="getIconSrc(scope.opt.iso2)" width="30px" height="100%" fit="contain" no-spinner no-native-menu />
-        <span class="q-ml-sm">(+{{ scope.opt.dialCode }})</span>
-        <span class="q-ml-sm">{{ scope.opt.name }}</span>
+      <div class="flex items-center q-pa-xs mdi-border-bottom no-wrap" v-bind="scope.itemProps">
+        <!-- <q-img :src="getIconSrc(scope.opt.iso2)" width="30px" height="100%" fit="contain" no-spinner no-native-menu /> -->
+        <span :class="[ 'v3q_tel__flag', scope.opt.iso2.toLowerCase() ]"></span>
+        <span class="q-ml-sm text-no-wrap">(+{{ scope.opt.dialCode }})</span>
+        <span class="q-ml-sm text-no-wrap ellipsis">{{ scope.opt.name }}</span>
       </div>
       <q-separator />
     </template>
     <template v-slot:selected-item="scope">
-      <q-item
+      <div
         class="q-pa-none ellipsis"
-        v-bind="scope.itemProps"
         v-if="scope.opt"
         style="min-height:unset;"
       >
-        <q-item-section avatar style="min-width:unset;" class="q-pr-sm">
-          <q-img height="100%" width="40px" :src="getIconSrc(scope.opt.iso2)" fit="contain" no-spinner no-native-menu />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label class="ellipsis" v-html="`+${scope.opt.dialCode}`" />
-        </q-item-section>
-      </q-item>
+        <!-- <q-item-section avatar style="min-width:unset;" class="q-pr-sm"> -->
+          <!-- <q-img height="100%" width="40px" :src="getIconSrc(scope.opt.iso2)" fit="contain" no-spinner no-native-menu /> -->
+        <!-- </q-item-section> -->
+        <div class="flex items-center no-wrap">
+          <span :class="[ 'v3q_tel__flag q-mr-sm', scope.opt.iso2.toLowerCase() ]"></span>
+          <span class="ellipsis text-no-wrap" v-html="`+${scope.opt.dialCode}`"></span>
+        </div>
+      </div>
     </template>
     <template v-slot:after-options>
       <div class="v3-q-tel--country-selector last-search-item q-pa-sm">
@@ -58,20 +59,9 @@ import { Options, Vue } from 'vue-class-component'
 import { Model, Prop } from 'vue-property-decorator'
 import countries, { filterCountries } from './countries'
 import { Country } from './types'
-import { QSelect, QInput, QIcon, QItem, QItemSection, QImg, QSeparator, QItemLabel } from 'quasar'
 
 @Options({
   name: 'country-selection',
-  components: {
-    QSelect,
-    QIcon,
-    QItem,
-    QItemSection,
-    QImg,
-    QSeparator,
-    QItemLabel,
-    QInput
-  },
   emits: [
     'countryChanged',
   ],
@@ -84,14 +74,11 @@ export default class CountrySelection extends Vue {
   @Prop({ type: String, default: () => 'Search' })
   searchText!: string
 
-  @Prop({ type: String, default: () => '' })
-  path!: string
-
   search_text: string = ''
   countryOptions: Country[] = []
 
   declare $refs: {
-    input: QInput
+    input: any
   }
 
   mounted () {
@@ -102,22 +89,6 @@ export default class CountrySelection extends Vue {
     console.log('here')
     const needle = this.search_text.toLowerCase().trim()
     this.countryOptions = needle === '' ? [ ...countries ] : filterCountries(needle)
-  }
-
-  private getPath (): string {
-    if (! this.path) return './'
-    if (this.path.lastIndexOf('/') === this.path.length - 1) return this.path
-    return `${this.path}/`
-  }
-
-  getIconSrc (src: string) {
-    const path = `${this.getPath()}${src.trim().toLowerCase()}.png`
-    try {
-      new URL(path)
-      return path
-    } catch {}
-    if (path.indexOf('.') === 0) return require(`./assets/country/${src.trim().toLowerCase()}.png`)
-    return path
   }
 
   countryChanged (val: Country) {

@@ -27,7 +27,6 @@ import CountrySelection from './CountrySelection.vue'
 import { Country } from './types'
 import { PhoneNumberUtil, PhoneNumber, PhoneNumberFormat } from 'google-libphonenumber'
 import { getCountryByDialCode, getDefault } from './countries'
-import { QInput } from 'quasar'
 
 const phoneNumberUtil: PhoneNumberUtil = new PhoneNumberUtil()
 
@@ -35,7 +34,6 @@ const phoneNumberUtil: PhoneNumberUtil = new PhoneNumberUtil()
   name: 'vue3-q-tel-input',
   components: {
     CountrySelection,
-    QInput,
   },
   emits: [
     'input',
@@ -57,9 +55,6 @@ export default class Vue3QTelInput extends Vue {
 
   @Prop({ type: String, default: () => 'us' })
   defaultCountry!: string
-
-  @Prop({ type: String, default: () => '' })
-  path!: string
   
   country: Country = getDefault()
   old_country!: Country
