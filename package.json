@@ -48,8 +48,7 @@
   "unpkg": "dist/vue3-q-tel-input.min.js",
   "files": [
     "dist/*",
-    "vue3-q-tel-input.d.ts",
-    "src/**/*.vue"
+    "vue3-q-tel-input.d.ts"
   ],
   "dependencies": {},
   "devDependencies": {
