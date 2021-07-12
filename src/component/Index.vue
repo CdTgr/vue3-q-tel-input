@@ -38,7 +38,9 @@ const phoneNumberUtil: PhoneNumberUtil = new PhoneNumberUtil()
     QInput,
   },
   emits: [
+    'update:tel',
     'input',
+    'error'
   ],
 })
 export default class Vue3QTelInput extends Vue {
@@ -98,6 +100,7 @@ export default class Vue3QTelInput extends Vue {
       this.has_error = this.tel.toString().trim() === '' ? this.required : true
       this.number = this.tel.toString().trim()
     }
+    this.$emit('error', this.has_error)
   }
 
   phoneChanged (val: string) {

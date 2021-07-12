@@ -50,3 +50,10 @@ All the props that are supported in [quasr input](https://quasar.dev/vue-compone
 | searchText | String | No | The label for the search field inside the country dropdown |
 | defaultCountry | String | No | The default country to load. eg: us, ae, in etc. |
 | dropdownOptions | Obejct | No | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |
+
+#### Events
+| Emitter | Type | Description |
+| ---- | ---- | ---- |
+| update:tel | string | Triggers when an update is made to the model value |
+| input | string | Triggers when the input value changes |
+| error | boolean | true when the input is invalid and false when valid |
