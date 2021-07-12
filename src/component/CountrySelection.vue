@@ -103,6 +103,7 @@ export default class CountrySelection extends Vue {
 </script>
 
 <style lang="scss">
+@import '../styles/flags';
 .v3-q-tel-input--country {
   .q-field__control {
     background: none !important;
