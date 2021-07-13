@@ -52,7 +52,9 @@
     "dist/*",
     "vue3-q-tel-input.d.ts"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "google-libphonenumber": "^3.2.21"
+  },
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
@@ -70,7 +72,6 @@
     "@vue/cli-service": "^4.5.10",
     "@vue/compiler-sfc": "^3.0.5",
     "cross-env": "^7.0.3",
-    "google-libphonenumber": "^3.2.21",
     "minimist": "^1.2.5",
     "postcss": "^8.2.3",
     "quasar": "^2.0.0",
