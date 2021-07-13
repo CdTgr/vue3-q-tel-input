@@ -3,7 +3,7 @@
 
 The plugin was made over Vue3 with considering the [Qasar Frameork v2.X](https://quasar.dev/). The plugin provides auto country detection on user inputs as well as dropdown for country which supports search by name, country code and country phone code.
 
-Contributers are welcome.
+Contributers are [welcome](https://github.com/CdTgr/vue3-q-tel-input).
 
 ---
 #### installation
