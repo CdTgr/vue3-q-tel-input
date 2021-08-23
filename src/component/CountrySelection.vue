@@ -50,14 +50,12 @@
 </template>
 
 <script lang="ts">
-import { PropType } from '@vue/runtime-core'
-import { Options, Vue } from 'vue-class-component'
-import { Model, Prop } from 'vue-property-decorator'
+import { defineComponent, PropType, Ref, ref } from 'vue'
 import countries, { filterCountries } from './countries'
 import { Country } from './types'
 import { QSelect, QIcon, QSeparator, QInput } from 'quasar'
 
-@Options({
+export default defineComponent({
   name: 'country-selection',
   components: {
     QSelect,
@@ -65,41 +63,36 @@ import { QSelect, QIcon, QSeparator, QInput } from 'quasar'
     QSeparator,
     QInput,
   },
+  props: {
+    country: { type: Object as PropType<Country>, required: true },
+    searchText: { type: String, defaulr: () => 'Search' },
+  },
   emits: [
     'countryChanged',
+    'update:country',
   ],
-})
-export default class CountrySelection extends Vue {
-
-  @Model('country', { type: Object as PropType<Country>, required: true })
-  country!: Country
-
-  @Prop({ type: String, default: () => 'Search' })
-  searchText!: string
-
-  search_text: string = ''
-  countryOptions: Country[] = []
-
-  declare $refs: {
-    input: QInput
-  }
-
+  setup () {
+    const search_text: Ref<string> = ref('')
+    const countryOptions: Ref<Country[]> = ref([])
+    return {
+      search_text,
+      countryOptions,
+    }
+  },
   mounted () {
     this.countryOptions = [ ...countries ]
-  }
-
-  performSearch () {
-    console.log('here')
-    const needle = this.search_text.toLowerCase().trim()
-    this.countryOptions = needle === '' ? [ ...countries ] : filterCountries(needle)
-  }
-
-  countryChanged (val: Country) {
-    this.$emit('update:country', val)
-    this.$emit('countryChanged', val)
-  }
-
-}
+  },
+  methods: {
+    performSearch () {
+      const needle = this.search_text.toLowerCase().trim()
+      this.countryOptions = needle === '' ? [ ...countries ] : filterCountries(needle)
+    },
+    countryChanged (val: Country) {
+      this.$emit('update:country', val)
+      this.$emit('countryChanged', val)
+    },
+  },
+})
 </script>
 
 <style lang="scss">

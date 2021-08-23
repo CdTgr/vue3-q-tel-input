@@ -101,8 +101,6 @@ const globals = {
   // Provide global variable names to replace your external imports
   // eg. jquery: '$'
   vue: 'Vue',
-  'vue-class-component': 'vueClassComponent',
-  'vue-property-decorator': 'vuePropertyDecorator',
   'quasar': 'quasar',
   'google-libphonenumber': 'googleLibphonenumber'
 };
