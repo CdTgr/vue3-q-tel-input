@@ -9,6 +9,11 @@
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CdTgr/vue3-q-tel-input.git"
+  },
+  "homepage": "https://github.com/CdTgr/vue3-q-tel-input/blob/master/readme.md",
   "keywords": [
     "vue3",
     "vue-3",
