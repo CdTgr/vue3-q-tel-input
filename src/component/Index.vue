@@ -12,7 +12,6 @@
         :searchText="searchText"
         v-model:country="country"
         @countryChanged="countryChanged()"
-        :path="path"
         v-bind="dropdownOptions"
         class="no-border-field-before no-padding-field font-reduced-input-adon"
       />
