@@ -40,7 +40,7 @@ export default defineComponent({
     required: { type: Boolean, default: () => '' },
     searchText: { type: String, default: () => 'Search' },
     dropdownOptions: { type: Object, default: () => ({}) },
-    defaultCountry: { type: String, default: () => 'us' },
+    defaultCountry: { type: String, default: () => 'in' },
   },
   emits: [
     'update:tel',
