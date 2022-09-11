@@ -40,6 +40,7 @@ export default defineComponent({
     required: { type: Boolean, default: () => '' },
     searchText: { type: String, default: () => 'Search' },
     dropdownOptions: { type: Object, default: () => ({}) },
+    defaultCountry: { type: String, default: () => 'us' },
     eagerValidate: { type: Boolean, default: true },
   },
   emits: [
@@ -95,13 +96,13 @@ export default defineComponent({
         this.number = this.getNumber(this.phone_number)
         this.has_error = ! phoneNumberUtil.isValidNumberForRegion(this.phone_number, this.country.iso2)
       } catch (e) {
-        this.phone_number = undefined;
+        this.phone_number = undefined
         this.has_error = !this.eagerValidate
           ? false
           : this.tel.toString().trim() === ""
           ? this.required
-          : true;
-        this.number = this.tel.toString().trim();
+          : true
+        this.number = this.tel.toString().trim()
       }
       this.$emit('error', this.has_error)
     },
