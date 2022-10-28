@@ -8,7 +8,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
-import PostCSS from 'rollup-plugin-postcss';
+import postcss from 'rollup-plugin-postcss';
 import { terser } from 'rollup-plugin-terser';
 import minimist from 'minimist';
 import typescript from 'rollup-plugin-typescript2';
@@ -57,7 +57,7 @@ const baseConfig = {
     },
     postVue: [
       resolve({
-        extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue', '.css'],
         preferBuiltins: true
       }),
       typescript({
@@ -67,14 +67,14 @@ const baseConfig = {
       }),
       scss(),
       // Process only `<style module>` blocks.
-      PostCSS({
+      postcss({
         modules: {
           generateScopedName: '[local]___[hash:base64:5]',
         },
         include: /&module=.*\.css$/,
       }),
       // Process all `<style>` blocks except `<style module>`.
-      PostCSS({ include: /(?<!&module=.*)\.css$/ }),
+      postcss({ include: /(?<!&module=.*)\.css$/ }),
       uglify(),
       commonjs(),
     ],
