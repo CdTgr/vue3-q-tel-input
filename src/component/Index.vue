@@ -74,6 +74,14 @@ export default defineComponent({
         this.setPhone()
       },
     },
+    defaultCountry: {
+      immediate: true,
+      handler() {
+        if (this.defaultCountry) {
+          this.country = getDefault(this.defaultCountry)
+        }
+      }
+    },
     country: {
       immediate: true,
       handler () {
