@@ -132,6 +132,7 @@ export default defineComponent({
       this.prev_value = '01234567890123456789'
       const value = (force ? (val || '') : (val || this.tel).toString()).trim()
       this.phoneChanged(this.old_country ? value.replace(`+${this.old_country.dialCode}`, `+${this.country.dialCode}`) : value)
+      this.setPhone()
     },
   },
 })
