@@ -1,6 +1,6 @@
 {
   "name": "vue3-q-tel-input",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "description": "Vue 3 telephone input implemented over Quasar framework",
   "scripts": {
     "serve": "vue-cli-service serve dev/serve.ts",
