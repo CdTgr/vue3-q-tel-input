@@ -161,7 +161,10 @@ if (!argv.format || argv.format === 'cjs') {
       ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
       ...baseConfig.plugins.postVue,
-      babel(baseConfig.plugins.babel),
+      babel({
+        ...baseConfig.plugins.babel,
+        presets: ['env']
+      }),
       uglify(),
     ],
   };
