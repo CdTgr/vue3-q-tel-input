@@ -44,7 +44,9 @@ const baseConfig = {
           },
         ],
       }),
-      scss(),
+      scss({
+        outputStyle: 'compressed',
+      }),
     ],
     replace: {
       preventAssignment: true,
@@ -135,7 +137,7 @@ if (!argv.format || argv.format === 'es') {
           ],
         ],
       }),
-      styles()
+      styles(),
     ],
   };
   buildFormats.push(esConfig);
