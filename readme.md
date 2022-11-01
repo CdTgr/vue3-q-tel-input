@@ -7,7 +7,12 @@
 
 The plugin was made over Vue3 with considering the [Qasar Frameork v2.X](https://quasar.dev/). The plugin provides auto country detection on user inputs as well as dropdown for country which supports search by name, country code and country phone code.
 
+Live preview for the code is avaialble in [CodePen](https://codepen.io/CdTgr/full/OJEMZvG)
+
 Contributers are [welcome](https://github.com/CdTgr/vue3-q-tel-input).
+
+Embed the Gist as 
+```<script src="https://gist.github.com/CdTgr/a85f5548f08db62861091c7f85566026.js"></script>```
 
 ---
 
@@ -69,10 +74,11 @@ _example_
 
 | Prop            | Type    | Required | Description                                                                           |
 | --------------- | ------- | -------- | ------------------------------------------------------------------------------------- |
-| required        | Boolean | No       | Shows error validation when the field is empty                                        |
-| searchText      | String  | No       | The label for the search field inside the country dropdown                            |
-| defaultCountry  | String  | No       | The default country to load. eg: us, ae, in etc.                                      |
-| dropdownOptions | Obejct  | No       | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |
+| required | Boolean | No | Shows error validation when the field is empty |
+| search-text | String  | No | The label for the search field inside the country dropdown |
+| default-country | String  | No | The default country to load. eg: us, ae, de, in etc. |
+| dropdown-options | Obejct  | No | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |
+| eager-validate | Boolean | No | Set to true if the validation needs not be run on loading |
 
 #### Events
 
