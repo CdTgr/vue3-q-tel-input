@@ -12,8 +12,9 @@ jobs:
         with:
           node-version: 14
       - run: npm install
-      - run: npm run build
+      - run: npm run lint --fix
       - run: npm test
+      - run: npm run build
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
