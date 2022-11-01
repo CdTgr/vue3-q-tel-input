@@ -78,7 +78,7 @@ const baseConfig = {
       }),
       // Process all `<style>` blocks except `<style module>`.
       postcss({ include: /(?<!&module=.*)\.css$/ }),
-      uglify(),
+      // uglify(),
       commonjs(),
     ],
     babel: {
@@ -137,6 +137,7 @@ if (!argv.format || argv.format === 'es') {
           ],
         ],
       }),
+      uglify(),
       styles(),
     ],
   };
@@ -161,6 +162,7 @@ if (!argv.format || argv.format === 'cjs') {
       vue(baseConfig.plugins.vue),
       ...baseConfig.plugins.postVue,
       babel(baseConfig.plugins.babel),
+      uglify(),
     ],
   };
   buildFormats.push(umdConfig);
