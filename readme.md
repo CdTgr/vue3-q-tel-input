@@ -12,7 +12,9 @@ Live preview for the code is avaialble in [CodePen](https://codepen.io/CdTgr/ful
 Contributers are [welcome](https://github.com/CdTgr/vue3-q-tel-input).
 
 Embed the Gist as 
-```<script src="https://gist.github.com/CdTgr/a85f5548f08db62861091c7f85566026.js"></script>```
+```
+<script src="https://gist.github.com/CdTgr/a85f5548f08db62861091c7f85566026.js"></script>
+```
 
 ---
 
