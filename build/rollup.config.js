@@ -15,6 +15,7 @@ import typescript from 'rollup-plugin-typescript2';
 import scss from 'rollup-plugin-scss';
 import { uglify } from 'rollup-plugin-uglify';
 import ignore from 'rollup-plugin-ignore';
+import styles from 'rollup-plugin-styles';
 
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs.readFileSync('./.browserslistrc')
@@ -134,6 +135,7 @@ if (!argv.format || argv.format === 'es') {
           ],
         ],
       }),
+      styles()
     ],
   };
   buildFormats.push(esConfig);

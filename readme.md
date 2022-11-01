@@ -1,6 +1,6 @@
 ### Vue3 Quasar Telephone Input
-![Node version](https://img.shields.io/node/v/vue3-q-tel-input.svg?style=flat) ![Types](https://badgen.net/badge/types/included/green) [![](https://data.jsdelivr.com/v1/package/npm/vue3-q-tel-input/badge)](https://www.jsdelivr.com/package/npm/vue3-q-tel-input) [![](https://badgen.net/badge/github/vue3%2Dq%2Dtel%2Dinput/blue?icon=github)](https://github.com/CdTgr/vue3-q-tel-input) [![](https://badgen.net/badge/npm/vue3%2Dq%2Dtel%2Dinput/blue?icon=npm)](https://www.npmjs.com/package/vue3-q-tel-input)
----
+
+## ![Node version](https://img.shields.io/node/v/vue3-q-tel-input.svg?style=flat) ![Types](https://badgen.net/badge/types/included/green) [![](https://data.jsdelivr.com/v1/package/npm/vue3-q-tel-input/badge)](https://www.jsdelivr.com/package/npm/vue3-q-tel-input) [![](https://badgen.net/badge/github/vue3%2Dq%2Dtel%2Dinput/blue?icon=github)](https://github.com/CdTgr/vue3-q-tel-input) [![](https://badgen.net/badge/npm/vue3%2Dq%2Dtel%2Dinput/blue?icon=npm)](https://www.npmjs.com/package/vue3-q-tel-input)
 
 ##### VUE3-Q-TEL-INPUT
 
@@ -10,7 +10,8 @@ Live preview for the code is avaialble in [CodePen](https://codepen.io/CdTgr/ful
 
 Contributers are [welcome]().
 
-Embed the Gist as 
+Embed the Gist as
+
 ```
 <script src="https://gist.github.com/CdTgr/a85f5548f08db62861091c7f85566026.js"></script>
 ```
@@ -48,10 +49,9 @@ import 'vue3-q-tel-input/dist/vue3-q-tel-input.esm.css'
 ##### CDN
 
 ```
-https://cdn.jsdelivr.net/npm/vue3-q-tel-input@1.0.25/dist/vue3-q-tel-input.esm.min.js
+https://cdn.jsdelivr.net/npm/vue3-q-tel-input@1.0.25/dist/vue3-q-tel-input.min.js
 https://cdn.jsdelivr.net/npm/vue3-q-tel-input@1.0.25/dist/vue3-q-tel-input.esm.css
 ```
-
 
 #### Usage
 
@@ -74,13 +74,13 @@ _example_
 
 #### Props
 
-| Prop            | Type    | Required | Description                                                                           |
-| --------------- | ------- | -------- | ------------------------------------------------------------------------------------- |
-| required | Boolean | No | Shows error validation when the field is empty |
-| search-text | String  | No | The label for the search field inside the country dropdown |
-| default-country | String  | No | The default country to load. eg: us, ae, de, in etc. |
-| dropdown-options | Obejct  | No | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |
-| eager-validate | Boolean | No | Set to true if the validation needs not be run on loading |
+| Prop             | Type    | Required | Description                                                                           |
+| ---------------- | ------- | -------- | ------------------------------------------------------------------------------------- |
+| required         | Boolean | No       | Shows error validation when the field is empty                                        |
+| search-text      | String  | No       | The label for the search field inside the country dropdown                            |
+| default-country  | String  | No       | The default country to load. eg: us, ae, de, in etc.                                  |
+| dropdown-options | Obejct  | No       | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |
+| eager-validate   | Boolean | No       | Set to true if the validation needs not be run on loading                             |
 
 #### Events
 
