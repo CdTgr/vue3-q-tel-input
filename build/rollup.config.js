@@ -101,7 +101,7 @@ const globals = {
   // Provide global variable names to replace your external imports
   // eg. jquery: '$'
   vue: 'Vue',
-  'quasar': 'quasar',
+  quasar: 'Quasar',
   'google-libphonenumber': 'googleLibphonenumber'
 };
 

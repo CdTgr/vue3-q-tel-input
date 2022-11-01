@@ -1,6 +1,9 @@
-### VUE3-Q-TEL-INPUT
-
+### Vue3 Quasar Telephone Input
+[![Node version](https://img.shields.io/node/v/vue3-q-tel-input.svg?style=flat)](http://nodejs.org/download/)
+[![](https://data.jsdelivr.com/v1/package/npm/vue3-q-tel-input/badge)](https://www.jsdelivr.com/package/npm/vue3-q-tel-input)
 ---
+
+##### VUE3-Q-TEL-INPUT
 
 The plugin was made over Vue3 with considering the [Qasar Frameork v2.X](https://quasar.dev/). The plugin provides auto country detection on user inputs as well as dropdown for country which supports search by name, country code and country phone code.
 
@@ -10,6 +13,7 @@ Contributers are [welcome](https://github.com/CdTgr/vue3-q-tel-input).
 
 #### installation
 
+##### Package manager
 yarn
 
 ```
@@ -33,6 +37,14 @@ Import the styles as
 ```
 import 'vue3-q-tel-input/dist/vue3-q-tel-input.esm.css'
 ```
+
+##### CDN
+
+```
+https://cdn.jsdelivr.net/npm/vue3-q-tel-input@1.0.25/dist/vue3-q-tel-input.esm.min.js
+https://cdn.jsdelivr.net/npm/vue3-q-tel-input@1.0.25/dist/vue3-q-tel-input.esm.css
+```
+
 
 #### Usage
 
