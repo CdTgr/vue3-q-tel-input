@@ -18,9 +18,10 @@ Embed the Gist as
 
 ---
 
-#### installation
+#### Installation
 
 ##### Package manager
+
 yarn
 
 ```
