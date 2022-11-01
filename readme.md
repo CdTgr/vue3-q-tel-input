@@ -48,6 +48,15 @@ import 'vue3-q-tel-input/dist/vue3-q-tel-input.esm.css'
 
 ##### CDN
 
+###### UNPKG
+
+```
+http://unpkg.com/vue3-q-tel-input@latest/dist/vue3-q-tel-input.min.js
+http://unpkg.com/vue3-q-tel-input@latest/dist/vue3-q-tel-input.esm.css
+```
+
+###### JSDELIVR
+
 ```
 https://cdn.jsdelivr.net/npm/vue3-q-tel-input@latest/dist/vue3-q-tel-input.min.js
 https://cdn.jsdelivr.net/npm/vue3-q-tel-input@latest/dist/vue3-q-tel-input.esm.css
