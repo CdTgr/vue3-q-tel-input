@@ -14,6 +14,7 @@ import minimist from 'minimist';
 import typescript from 'rollup-plugin-typescript2';
 import scss from 'rollup-plugin-scss';
 import { uglify } from 'rollup-plugin-uglify';
+// import { terser } from 'rollup-plugin-terser';
 import ignore from 'rollup-plugin-ignore';
 import styles from 'rollup-plugin-styles';
 
@@ -78,8 +79,9 @@ const baseConfig = {
       }),
       // Process all `<style>` blocks except `<style module>`.
       postcss({ include: /(?<!&module=.*)\.css$/ }),
-      // uglify(),
       commonjs(),
+      uglify(),
+      // terser(),
     ],
     babel: {
       exclude: 'node_modules/**',
@@ -137,7 +139,6 @@ if (!argv.format || argv.format === 'es') {
           ],
         ],
       }),
-      uglify(),
       styles(),
     ],
   };
@@ -161,11 +162,7 @@ if (!argv.format || argv.format === 'cjs') {
       ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
       ...baseConfig.plugins.postVue,
-      babel({
-        ...baseConfig.plugins.babel,
-        presets: ['env']
-      }),
-      uglify(),
+      babel(baseConfig.plugins.babel),
     ],
   };
   buildFormats.push(umdConfig);
