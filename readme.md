@@ -1,6 +1,5 @@
 ### Vue3 Quasar Telephone Input
-[![Node version](https://img.shields.io/node/v/vue3-q-tel-input.svg?style=flat)](http://nodejs.org/download/)
-[![](https://data.jsdelivr.com/v1/package/npm/vue3-q-tel-input/badge)](https://www.jsdelivr.com/package/npm/vue3-q-tel-input)
+![Node version](https://img.shields.io/node/v/vue3-q-tel-input.svg?style=flat) ![Types](https://badgen.net/badge/types/included/green) [![](https://data.jsdelivr.com/v1/package/npm/vue3-q-tel-input/badge)](https://www.jsdelivr.com/package/npm/vue3-q-tel-input) [![](https://badgen.net/badge/github/vue3%2Dq%2Dtel%2Dinput/blue?icon=github)](https://github.com/CdTgr/vue3-q-tel-input) [![](https://badgen.net/badge/npm/vue3%2Dq%2Dtel%2Dinput/blue?icon=npm)](https://www.npmjs.com/package/vue3-q-tel-input)
 ---
 
 ##### VUE3-Q-TEL-INPUT
@@ -9,7 +8,7 @@ The plugin was made over Vue3 with considering the [Qasar Frameork v2.X](https:/
 
 Live preview for the code is avaialble in [CodePen](https://codepen.io/CdTgr/full/OJEMZvG)
 
-Contributers are [welcome](https://github.com/CdTgr/vue3-q-tel-input).
+Contributers are [welcome]().
 
 Embed the Gist as 
 ```
