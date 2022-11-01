@@ -1,11 +1,11 @@
-import { App, DefineComponent, Plugin } from "vue";
+import { App, DefineComponent, Plugin } from 'vue';
 
 // Import vue component
-import component from "@/component/Index.vue";
+import component from '@/component/Index.vue';
 
 // Define typescript interfaces for installable component
-type InstallableComponent = DefineComponent<{}, {}, any> & {
-  install: Exclude<Plugin["install"], undefined>;
+type InstallableComponent = DefineComponent<{}, {}, unknown> & {
+  install: Exclude<Plugin['install'], undefined>;
 };
 
 // Default export is installable instance of component.
@@ -17,7 +17,7 @@ export default /*#__PURE__*/ ((): InstallableComponent => {
 
   // Attach install function executed by Vue.use()
   installable.install = (app: App) => {
-    app.component("Vue3QTelInput", installable);
+    app.component('Vue3QTelInput', installable);
   };
   return installable;
 })();
