@@ -49,8 +49,8 @@ import 'vue3-q-tel-input/dist/vue3-q-tel-input.esm.css'
 ##### CDN
 
 ```
-https://cdn.jsdelivr.net/npm/vue3-q-tel-input@1.0.25/dist/vue3-q-tel-input.min.js
-https://cdn.jsdelivr.net/npm/vue3-q-tel-input@1.0.25/dist/vue3-q-tel-input.esm.css
+https://cdn.jsdelivr.net/npm/vue3-q-tel-input@latest/dist/vue3-q-tel-input.min.js
+https://cdn.jsdelivr.net/npm/vue3-q-tel-input@latest/dist/vue3-q-tel-input.esm.css
 ```
 
 #### Usage
