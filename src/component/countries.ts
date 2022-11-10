@@ -254,11 +254,28 @@ const all: Country[] = allCountries.map(([name, iso2, dialCode]) => ({
 
 export default all;
 
-export const getDefault = (country = 'us') => all.filter(a => a.iso2 === country.trim().toUpperCase())[0];
+export const getDefault = (country = 'us') => all.find(a => a.iso2 === country.trim().toUpperCase());
+
+export const getCountryCodeFromPhoneNumber = (number: string): Country | null => {
+  number = number.trim();
+  if (number.indexOf('+') === 0) {
+    number = number.slice(1);
+  }
+  const filtered = all.filter(f => number.indexOf(f.dialCode) === 0);
+
+  if (filtered.length) {
+    return filtered[0];
+  }
+  return null;
+};
 
 export const getCountryByDialCode = (val = ''): Country | null => {
-  const selected = all.filter(f => val.indexOf(`+${f.dialCode}`) !== -1);
-  if (selected.length) return selected[0];
+  const selected = all.find(f => val.indexOf(`+${f.dialCode}`) !== -1);
+
+  if (selected) {
+    return selected;
+  }
+
   return null;
 };
 

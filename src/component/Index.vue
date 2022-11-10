@@ -10,7 +10,7 @@
 import CountrySelection from './CountrySelection.vue';
 import { Country } from './types';
 import { PhoneNumberUtil, PhoneNumber, PhoneNumberFormat } from 'google-libphonenumber';
-import { getCountryByDialCode, getDefault } from './countries';
+import { getCountryByDialCode, getDefault, getCountryCodeFromPhoneNumber } from './countries';
 import { QInput } from 'quasar';
 import { defineComponent, ref, Ref } from 'vue';
 
@@ -82,10 +82,20 @@ export default defineComponent({
       return phone;
     },
     setPhone() {
+      let country = this.country;
+      if (this.tel.toString() !== '') {
+        const inCountry = getCountryCodeFromPhoneNumber(this.tel.toString());
+        if (inCountry && this.country.iso2 !== inCountry.iso2) {
+          country = inCountry;
+          this.$nextTick(() => {
+            this.country = country;
+          });
+        }
+      }
       try {
-        this.phone_number = phoneNumberUtil.parse(this.tel.toString().trim(), this.country.iso2);
+        this.phone_number = phoneNumberUtil.parse(this.tel.toString().trim(), country.iso2);
         this.number = this.getNumber(this.phone_number);
-        this.has_error = !phoneNumberUtil.isValidNumberForRegion(this.phone_number, this.country.iso2);
+        this.has_error = !phoneNumberUtil.isValidNumberForRegion(this.phone_number, country.iso2);
       } catch (e) {
         this.phone_number = undefined;
         this.has_error = this.eagerValidate ? (this.tel.toString().trim() === '' ? this.required : true) : false;
