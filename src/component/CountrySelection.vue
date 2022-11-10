@@ -2,44 +2,36 @@
   <q-select
     :model-value="country"
     :options="countryOptions"
-    hide-bottom-space hide-dropdown-icon borderless dense
+    hide-bottom-space
+    hide-dropdown-icon
+    borderless
+    dense
     virtual-scroll-slice-size="9999"
     class="no-inherit-feedback no-feedback v3-q-tel-input--country"
     @update:model-value="countryChanged"
-    @popup-hide="search_text=''"
-    :menu-offset="[ 12, 0 ]"
+    @popup-hide="search_text = ''"
+    :menu-offset="[12, 0]"
     v-bind="$props"
   >
     <template v-slot:option="scope">
       <div class="flex items-center q-pa-xs mdi-border-bottom no-wrap" v-bind="scope.itemProps">
-        <span :class="[ 'v3q_tel__flag', scope.opt.iso2.toLowerCase() ]"></span>
+        <span :class="['v3q_tel__flag', scope.opt.iso2.toLowerCase()]"></span>
         <span class="q-ml-sm text-no-wrap">(+{{ scope.opt.dialCode }})</span>
         <span class="q-ml-sm text-no-wrap ellipsis">{{ scope.opt.name }}</span>
       </div>
       <q-separator />
     </template>
     <template v-slot:selected-item="scope">
-      <div
-        class="q-pa-none ellipsis"
-        v-if="scope.opt"
-        style="min-height:unset;"
-      >
+      <div class="q-pa-none ellipsis" v-if="scope.opt" style="min-height: unset">
         <div class="flex items-center no-wrap">
-          <span :class="[ 'v3q_tel__flag q-mr-sm', scope.opt.iso2.toLowerCase() ]"></span>
+          <span :class="['v3q_tel__flag q-mr-sm', scope.opt.iso2.toLowerCase()]"></span>
           <span class="ellipsis text-no-wrap" v-html="`+${scope.opt.dialCode}`"></span>
         </div>
       </div>
     </template>
     <template v-slot:after-options>
       <div class="v3-q-tel--country-selector last-search-item q-pa-sm">
-        <q-input
-          v-model="search_text"
-          ref="input"
-          @update:model-value="performSearch"
-          dense outlined
-          :label="searchText"
-          class="bg-white"
-        >
+        <q-input v-model="search_text" ref="input" @update:model-value="performSearch" dense outlined :label="searchText" class="bg-white">
           <template v-slot:prepend>
             <q-icon name="search" />
           </template>
@@ -50,10 +42,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, Ref, ref } from 'vue'
-import countries, { filterCountries } from './countries'
-import { Country } from './types'
-import { QSelect, QIcon, QSeparator, QInput } from 'quasar'
+import { defineComponent, PropType, Ref, ref } from 'vue';
+import countries, { filterCountries } from './countries';
+import { Country } from './types';
+import { QSelect, QIcon, QSeparator, QInput } from 'quasar';
 
 export default defineComponent({
   name: 'country-selection',
@@ -67,32 +59,38 @@ export default defineComponent({
     country: { type: Object as PropType<Country>, required: true },
     searchText: { type: String, defaulr: () => 'Search' },
   },
-  emits: [
-    'countryChanged',
-    'update:country',
-  ],
-  setup () {
-    const search_text: Ref<string> = ref('')
-    const countryOptions: Ref<Country[]> = ref([])
+  emits: ['countryChanged', 'update:country'],
+  watch: {
+    country: {
+      immediate: true,
+      handler() {
+        this.search_text = '';
+        this.performSearch();
+      },
+    },
+  },
+  setup() {
+    const search_text: Ref<string> = ref('');
+    const countryOptions: Ref<Country[]> = ref([]);
     return {
       search_text,
       countryOptions,
-    }
+    };
   },
-  mounted () {
-    this.countryOptions = [ ...countries ]
+  mounted() {
+    this.countryOptions = [...countries];
   },
   methods: {
-    performSearch () {
-      const needle = this.search_text.toLowerCase().trim()
-      this.countryOptions = needle === '' ? [ ...countries ] : filterCountries(needle)
+    performSearch() {
+      const needle = this.search_text.toLowerCase().trim();
+      this.countryOptions = needle === '' ? [...countries] : filterCountries(needle);
     },
-    countryChanged (val: Country) {
-      this.$emit('update:country', val)
-      this.$emit('countryChanged', val)
+    countryChanged(val: Country) {
+      this.$emit('update:country', val);
+      this.$emit('countryChanged', val);
     },
   },
-})
+});
 </script>
 
 <style lang="scss">
@@ -100,7 +98,9 @@ export default defineComponent({
 .v3-q-tel-input--country {
   .q-field__control {
     background: none !important;
-    &::before { display: none !important; }
+    &::before {
+      display: none !important;
+    }
   }
   .q-field__input {
     border: none !important;
