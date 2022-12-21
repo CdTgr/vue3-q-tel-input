@@ -2,12 +2,10 @@
   <div id="app">
     <div class="row">
       <div class="col-3 offset-3 q-mt-lg">
-        <vue3-q-tel-input v-model:tel="input" searchText="Search using code/country" dense filled default-country="de" />
+        <vue3-q-tel-input use-icon v-model:tel="input" searchText="Search using code/country" dense filled default-country="de" />
       </div>
     </div>
-    <div>
-      entered telephone number : {{input}}
-    </div>
+    <div>entered telephone number : {{ input }}</div>
   </div>
 </template>
 
@@ -18,12 +16,12 @@ import Vue3QTelInput from '@/component/Index.vue';
 export default defineComponent({
   name: 'ServeDev',
   components: {
-    Vue3QTelInput
+    Vue3QTelInput,
   },
-  data () {
+  data() {
     return {
-      input: ''
-    }
-  }
+      input: '',
+    };
+  },
 });
 </script>

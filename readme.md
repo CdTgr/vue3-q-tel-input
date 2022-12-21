@@ -90,6 +90,7 @@ _example_
 | default-country  | String  | No       | The default country to load. eg: us, ae, de, in etc.                                  |
 | dropdown-options | Obejct  | No       | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |
 | eager-validate   | Boolean | No       | Set to true if the validation needs not be run on loading                             |
+| use-icon         | Boolean | No       | Set to use the emoji icon instead of the default flag images                          |
 
 #### Events
 

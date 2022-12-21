@@ -1,7 +1,7 @@
 <template>
   <q-input :error="has_error" :model-value="number" class="vue3-q-tel-input no-inherit-feedback" @update:model-value="phoneChanged" :maxlength="prev_value.length" :v-bind="$props">
     <template #prepend>
-      <CountrySelection :search-text="searchText" v-model:country="country" @countryChanged="countryChanged()" v-bind="dropdownOptions" class="no-border-field-before no-padding-field font-reduced-input-adon" />
+      <CountrySelection :use-icon="useIcon" :search-text="searchText" v-model:country="country" @countryChanged="countryChanged()" v-bind="dropdownOptions" class="no-border-field-before no-padding-field font-reduced-input-adon" />
     </template>
   </q-input>
 </template>
@@ -28,7 +28,8 @@ export default defineComponent({
     searchText: { type: String, default: () => 'Search' },
     dropdownOptions: { type: Object, default: () => ({}) },
     defaultCountry: { type: String, default: () => 'us' },
-    eagerValidate: { type: Boolean, default: true },
+    eagerValidate: { type: Boolean, default: () => true },
+    useIcon: { type: Boolean, default: () => false },
   },
   emits: ['update:tel', 'input', 'error'],
   setup() {

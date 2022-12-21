@@ -15,7 +15,7 @@
   >
     <template v-slot:option="scope">
       <div class="flex items-center q-pa-xs mdi-border-bottom no-wrap" v-bind="scope.itemProps">
-        <span :class="['v3q_tel__flag', scope.opt.iso2.toLowerCase()]"></span>
+        <span :class="!useIcon ? ['v3q_tel__flag', scope.opt.iso2.toLowerCase()] : 'q-mr-sm'">{{ useIcon ? scope.opt.emoji : '' }}</span>
         <span class="q-ml-sm text-no-wrap">(+{{ scope.opt.dialCode }})</span>
         <span class="q-ml-sm text-no-wrap ellipsis">{{ scope.opt.name }}</span>
       </div>
@@ -24,7 +24,7 @@
     <template v-slot:selected-item="scope">
       <div class="q-pa-none ellipsis" v-if="scope.opt" style="min-height: unset">
         <div class="flex items-center no-wrap">
-          <span :class="['v3q_tel__flag q-mr-sm', scope.opt.iso2.toLowerCase()]"></span>
+          <span :class="!useIcon ? ['v3q_tel__flag q-mr-sm', scope.opt.iso2.toLowerCase()] : 'q-mr-sm'">{{ useIcon ? scope.opt.emoji : '' }}</span>
           <span class="ellipsis text-no-wrap" v-html="`+${scope.opt.dialCode}`"></span>
         </div>
       </div>
@@ -57,7 +57,8 @@ export default defineComponent({
   },
   props: {
     country: { type: Object as PropType<Country>, required: true },
-    searchText: { type: String, defaulr: () => 'Search' },
+    searchText: { type: String, default: () => 'Search' },
+    useIcon: { type: Boolean, default: () => false },
   },
   emits: ['countryChanged', 'update:country'],
   watch: {
