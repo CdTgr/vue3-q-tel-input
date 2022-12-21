@@ -103,10 +103,11 @@ export default defineComponent({
       }
       this.$emit('error', this.has_error);
     },
-    phoneChanged(val: string) {
+    phoneChanged(val: string | number | null) {
+      val = val === null ? '' : val.toString();
       let phone: PhoneNumber | undefined;
       try {
-        phone = phoneNumberUtil.parse(val.toString().trim(), this.country.iso2);
+        phone = phoneNumberUtil.parse(val.trim(), this.country.iso2);
       } catch {
         phone = undefined;
       }
