@@ -75,6 +75,36 @@ _example_
 <vue3-q-tel-input v-model:tel="tel" dense outlined />
 ```
 
+All the slots that are supported in [quasr input](https://quasar.dev/vue-components/input) field are available in the plugin as input slots. Country selection element uses `#append` slot
+
+_example_
+
+```
+<vue3-q-tel-input>
+    <template v-slot:append>
+        <q-avatar>
+            <img src="https://cdn.quasar.dev/logo-v2/svg/logo.svg">
+        </q-avatar>
+    </template>
+</vue3-q-tel-input>
+```
+
+All the slots that are supported in [quasr input](https://quasar.dev/vue-components/select) field are available in the plugin as  country select control slots with prefix `cs-`.
+
+_example_
+
+```
+<vue3-q-tel-input>
+    <template v-slot:cs-after-options v-if="canCreate && !options.find(o => o[optionLabel] === textInput)">
+        <q-item>
+            <q-item-section>
+                This renders as after-options q-select slot in country list
+            </q-item-section>
+        </q-item>
+    </template>
+</vue3-q-tel-input>
+```
+
 #### Model
 
 | Prop | Type             | Description         | Usage                            |

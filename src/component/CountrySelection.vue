@@ -5,7 +5,6 @@
     hide-bottom-space
     hide-dropdown-icon
     borderless
-    dense
     virtual-scroll-slice-size="9999"
     class="no-inherit-feedback no-feedback v3-q-tel-input--country"
     @update:model-value="countryChanged"

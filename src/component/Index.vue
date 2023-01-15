@@ -1,7 +1,14 @@
 <template>
   <q-input :error="has_error" :model-value="number" class="vue3-q-tel-input no-inherit-feedback" @update:model-value="phoneChanged" :maxlength="prev_value.length" :v-bind="$props">
     <template #prepend>
-      <CountrySelection :use-icon="useIcon" :search-text="searchText" v-model:country="country" @countryChanged="countryChanged()" v-bind="dropdownOptions" class="no-border-field-before no-padding-field font-reduced-input-adon" />
+      <CountrySelection :use-icon="useIcon" :search-text="searchText" v-model:country="country" @countryChanged="countryChanged()" :readonly="readonly" :disable="disable" :dense="dense" v-bind="dropdownOptions" class="no-border-field-before no-padding-field font-reduced-input-adon">
+        <template v-for="slot of countrySelectSlots" v-slot:[slot]="scope">
+          <slot :name="slot" v-bind="scope ?? {}"></slot>
+        </template>
+      </CountrySelection>
+    </template>
+    <template v-for="slot of inputSlots" v-slot:[slot]="scope">
+      <slot :name="slot" v-bind="scope ?? {}"></slot>
     </template>
   </q-input>
 </template>
@@ -12,7 +19,7 @@ import { Country } from './types';
 import { PhoneNumberUtil, PhoneNumber, PhoneNumberFormat } from 'google-libphonenumber';
 import { getCountryByDialCode, getDefault, getCountryCodeFromPhoneNumber } from './countries';
 import { QInput } from 'quasar';
-import { defineComponent, ref, Ref } from 'vue';
+import { defineComponent, ref, Ref, computed, ComputedRef } from 'vue';
 
 const phoneNumberUtil: PhoneNumberUtil = new PhoneNumberUtil();
 
@@ -30,15 +37,24 @@ export default defineComponent({
     defaultCountry: { type: String, default: () => 'us' },
     eagerValidate: { type: Boolean, default: () => true },
     useIcon: { type: Boolean, default: () => false },
+    readonly: { type: Boolean, default: () => false },
+    dense: { type: Boolean, default: () => false},
+    disable: { type: Boolean, default: () => false}
   },
   emits: ['update:tel', 'input', 'error'],
-  setup() {
+  setup(props, { slots }) {
     const country: Ref<Country> = ref(getDefault() as Country);
     const old_country: Ref<Country | undefined> = ref(undefined);
     const number: Ref<string> = ref('');
     const has_error: Ref<boolean> = ref(false);
     const prev_value: Ref<string> = ref('01234567890123456789');
     const phone_number: Ref<PhoneNumber | undefined> = ref(undefined);
+    const inputSlots: ComputedRef<string[]> = computed(() => Object.keys(slots).filter(slotName => !slotName.startsWith('cs-')));
+    const countrySelectSlots: ComputedRef<string[]> = computed(() =>
+      Object.keys(slots)
+        .filter(slotName => slotName.startsWith('cs-'))
+        .map(slotName => slotName.substring(3)),
+    );
     return {
       country,
       old_country,
@@ -46,6 +62,8 @@ export default defineComponent({
       has_error,
       prev_value,
       phone_number,
+      inputSlots,
+      countrySelectSlots,
     };
   },
   mounted() {
