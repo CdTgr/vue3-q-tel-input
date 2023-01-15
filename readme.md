@@ -95,10 +95,10 @@ _example_
 
 ```
 <vue3-q-tel-input>
-    <template v-slot:cs-after-options v-if="canCreate && !options.find(o => o[optionLabel] === textInput)">
+    <template v-slot:cs-before-options v-if="canCreate && !options.find(o => o[optionLabel] === textInput)">
         <q-item>
             <q-item-section>
-                This renders as after-options q-select slot in country list
+                This renders as before-options q-select slot in country list
             </q-item-section>
         </q-item>
     </template>
