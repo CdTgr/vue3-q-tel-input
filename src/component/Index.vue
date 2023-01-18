@@ -38,8 +38,8 @@ export default defineComponent({
     eagerValidate: { type: Boolean, default: () => true },
     useIcon: { type: Boolean, default: () => false },
     readonly: { type: Boolean, default: () => false },
-    dense: { type: Boolean, default: () => false},
-    disable: { type: Boolean, default: () => false}
+    dense: { type: Boolean, default: () => false },
+    disable: { type: Boolean, default: () => false },
   },
   emits: ['update:tel', 'input', 'error'],
   setup(props, { slots }) {
