@@ -75,7 +75,7 @@ _example_
 <vue3-q-tel-input v-model:tel="tel" dense outlined />
 ```
 
-All the slots that are supported in [quasr input](https://quasar.dev/vue-components/input) field are available in the plugin as input slots. Country selection element uses `#append` slot
+All the slots that are supported in [quasar input](https://quasar.dev/vue-components/input) field are available in the plugin as input slots. Country selection element uses `#append` slot
 
 _example_
 
@@ -89,13 +89,13 @@ _example_
 </vue3-q-tel-input>
 ```
 
-All the slots that are supported in [quasr input](https://quasar.dev/vue-components/select) field are available in the plugin as  country select control slots with prefix `cs-`.
+All the slots that are supported in [quasar select](https://quasar.dev/vue-components/select) field are available in the plugin as  country select control slots with prefix `cs-`.
 
 _example_
 
 ```
 <vue3-q-tel-input>
-    <template v-slot:cs-before-options v-if="canCreate && !options.find(o => o[optionLabel] === textInput)">
+    <template v-slot:cs-before-options>
         <q-item>
             <q-item-section>
                 This renders as before-options q-select slot in country list
