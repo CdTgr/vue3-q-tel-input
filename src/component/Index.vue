@@ -42,7 +42,7 @@ export default defineComponent({
     disable: { type: Boolean, default: () => false },
   },
   emits: ['update:tel', 'input', 'error'],
-  setup(props, { slots }) {
+  setup(_, { slots }) {
     const country: Ref<Country> = ref(getDefault() as Country);
     const old_country: Ref<Country | undefined> = ref(undefined);
     const number: Ref<string> = ref('');
