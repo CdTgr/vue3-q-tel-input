@@ -5,7 +5,6 @@
     hide-bottom-space
     hide-dropdown-icon
     borderless
-    dense
     virtual-scroll-slice-size="9999"
     class="no-inherit-feedback no-feedback v3-q-tel-input--country"
     @update:model-value="countryChanged"
@@ -37,6 +36,9 @@
           </template>
         </q-input>
       </div>
+    </template>
+    <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
+      <slot :name="slot" v-bind="scope ?? {}"></slot>
     </template>
   </q-select>
 </template>
