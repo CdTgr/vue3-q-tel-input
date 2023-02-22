@@ -117,6 +117,7 @@ _example_
 | ---------------- | ------- | -------- | ------------------------------------------------------------------------------------- |
 | required         | Boolean | No       | Shows error validation when the field is empty                                        |
 | search-text      | String  | No       | The label for the search field inside the country dropdown                            |
+| search-icon      | String  | No       | Set the icon for the search field to something else                                   |  
 | default-country  | String  | No       | The default country to load. eg: us, ae, de, in etc.                                  |
 | dropdown-options | Obejct  | No       | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |
 | eager-validate   | Boolean | No       | Set to true if the validation needs not be run on loading                             |
