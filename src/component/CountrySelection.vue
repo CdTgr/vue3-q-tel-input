@@ -32,7 +32,7 @@
       <div class="v3-q-tel--country-selector last-search-item q-pa-sm">
         <q-input v-model="search_text" ref="input" @update:model-value="performSearch" dense outlined :label="searchText" class="bg-white">
           <template v-slot:prepend>
-            <q-icon name="search" />
+            <q-icon :name="searchIcon ?? 'search'" />
           </template>
         </q-input>
       </div>
@@ -60,6 +60,7 @@ export default defineComponent({
   props: {
     country: { type: Object as PropType<Country>, required: true },
     searchText: { type: String, default: () => 'Search' },
+    searchIcon: { type: String, default: () => 'search' },
     useIcon: { type: Boolean, default: () => false },
   },
   emits: ['countryChanged', 'update:country'],
