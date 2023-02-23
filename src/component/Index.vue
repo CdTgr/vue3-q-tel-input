@@ -1,7 +1,18 @@
 <template>
   <q-input :error="has_error" :model-value="number" class="vue3-q-tel-input no-inherit-feedback" @update:model-value="phoneChanged" :maxlength="prev_value.length" :v-bind="$props">
     <template #prepend>
-      <CountrySelection :use-icon="useIcon" :search-text="searchText" :search-icon="searchIcon" v-model:country="country" @countryChanged="countryChanged()" :readonly="readonly" :disable="disable" :dense="dense" v-bind="dropdownOptions" class="no-border-field-before no-padding-field font-reduced-input-adon">
+      <CountrySelection
+        :use-icon="useIcon"
+        :search-text="searchText"
+        :search-icon="searchIcon"
+        v-model:country="country"
+        @countryChanged="countryChanged()"
+        :readonly="readonly"
+        :disable="disable"
+        :dense="dense"
+        v-bind="dropdownOptions"
+        class="no-border-field-before no-padding-field font-reduced-input-adon"
+      >
         <template v-for="slot of countrySelectSlots" v-slot:[slot]="scope">
           <slot :name="slot" v-bind="scope ?? {}"></slot>
         </template>
