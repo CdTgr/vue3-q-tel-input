@@ -3773,7 +3773,7 @@ fs-extra@^8.1.0:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
-fs-extra@^9.0.0, fs-extra@^9.1.0:
+fs-extra@^9.0.0, fs-extra@^9.0.1, fs-extra@^9.1.0:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-9.1.0.tgz#5954460c764a8da2094ba3554bf839e6b9a7c86d"
   integrity sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==
@@ -6250,6 +6250,13 @@ rollup-plugin-inject@^3.0.0:
     estree-walker "^0.6.1"
     magic-string "^0.25.3"
     rollup-pluginutils "^2.8.1"
+
+rollup-plugin-mv@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-mv/-/rollup-plugin-mv-0.0.2.tgz#58b8dcc23b997bc08bf4d2a791e173e35f41f617"
+  integrity sha512-QareI4ipd41g5g0kifhdDyxlaA2c2r9dbAKWzlaaDR0cL+L4ZBnLJFxoHD4pl6weYxIm/UBsKGTL0cJKIfBPlQ==
+  dependencies:
+    fs-extra "^9.0.1"
 
 rollup-plugin-node-polyfills@^0.2.1:
   version "0.2.1"
