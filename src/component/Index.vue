@@ -27,12 +27,10 @@
 <script lang="ts">
 import CountrySelection from './CountrySelection.vue';
 import { Country } from './types';
-import { PhoneNumberUtil, PhoneNumber, PhoneNumberFormat } from 'google-libphonenumber';
+import { CountryCode, isValidPhoneNumber, parsePhoneNumber, PhoneNumber } from 'libphonenumber-js';
 import { getCountryByDialCode, getDefault, getCountryCodeFromPhoneNumber } from './countries';
 import { QInput } from 'quasar';
 import { defineComponent, ref, Ref, computed, ComputedRef } from 'vue';
-
-const phoneNumberUtil: PhoneNumberUtil = new PhoneNumberUtil();
 
 export default defineComponent({
   name: 'vue3-q-tel-input',
@@ -106,10 +104,14 @@ export default defineComponent({
     },
   },
   methods: {
-    getNumber(instance: PhoneNumber): string {
-      if (!this.phone_number) return '';
-      let phone: string = phoneNumberUtil.format(instance, PhoneNumberFormat.NATIONAL);
-      if (phone.indexOf('0') === 0) phone = phone.replace(/^0/, '');
+    getNumber(instance: PhoneNumber, international = false): string {
+      if (!this.phone_number) {
+        return '';
+      }
+      let phone: string = international ? instance.formatInternational() : instance.formatNational();
+      if (phone.indexOf('0') === 0) {
+        phone = phone.replace(/^0/, '');
+      }
       return phone;
     },
     setPhone() {
@@ -124,9 +126,9 @@ export default defineComponent({
         }
       }
       try {
-        this.phone_number = phoneNumberUtil.parse(this.tel.toString().trim(), country.iso2);
+        this.phone_number = parsePhoneNumber(this.tel.toString().trim(), country.iso2 as CountryCode);
         this.number = this.getNumber(this.phone_number);
-        this.has_error = !phoneNumberUtil.isValidNumberForRegion(this.phone_number, country.iso2);
+        this.has_error = !isValidPhoneNumber(this.phone_number.formatInternational(), country.iso2 as CountryCode);
       } catch (e) {
         this.phone_number = undefined;
         this.has_error = this.eagerValidate ? (this.tel.toString().trim() === '' ? this.required : true) : false;
@@ -138,7 +140,7 @@ export default defineComponent({
       val = val === null ? '' : val.toString();
       let phone: PhoneNumber | undefined;
       try {
-        phone = phoneNumberUtil.parse(val.trim(), this.country.iso2);
+        phone = parsePhoneNumber(val.trim(), this.country.iso2 as CountryCode);
       } catch {
         phone = undefined;
       }
@@ -152,16 +154,25 @@ export default defineComponent({
         }
       }
       const num = phone ? this.getNumber(phone) : val;
-      this.prev_value = phone && phoneNumberUtil.isValidNumberForRegion(phone, this.country.iso2) ? this.getNumber(phone) : this.prev_value;
-      if (num.replace(/ /g, '').length > this.prev_value.replace(/ /g, '').length) return this.setPhone(); // no need to update as its not valid
-      this.$emit('update:tel', phone ? phoneNumberUtil.format(phone, PhoneNumberFormat.INTERNATIONAL) : val.trim());
-      this.$emit('input', phone ? phoneNumberUtil.format(phone, PhoneNumberFormat.INTERNATIONAL) : val.trim());
+      this.prev_value = phone && isValidPhoneNumber(phone.formatInternational(), this.country.iso2 as CountryCode) ? this.getNumber(phone, true) : this.prev_value;
+      if (num.replace(/ /g, '').length > this.prev_value.replace(/ /g, '').length) {
+        return this.setPhone(); // no need to update as its not valid
+      }
+      this.$emit('update:tel', phone ? phone.formatInternational() : '');
+      this.$emit('input', phone ? phone.formatNational() : val.trim());
     },
-    countryChanged(val?: string, force?: boolean) {
+    countryChanged(val = '') {
       this.prev_value = '01234567890123456789';
-      const value = ((force ? val : (val || this.tel).toString()) || '').trim();
-      this.phoneChanged(this.old_country ? value.replace(`+${this.old_country.dialCode}`, `+${this.country.dialCode}`) : value);
-      this.setPhone();
+      let value = ((val || this.tel).toString() || '').trim();
+      if (this.old_country) {
+        if (value.startsWith('+')) {
+          value = value.replace(`+${this.old_country.dialCode}`, '').trim();
+        }
+      }
+      this.phoneChanged(value);
+      this.$nextTick(() => {
+        this.setPhone();
+      });
     },
   },
 });

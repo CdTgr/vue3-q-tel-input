@@ -1,9 +1,10 @@
 {
   "name": "vue3-q-tel-input",
-  "version": "1.0.53",
+  "version": "1.1.2",
   "description": "Vue 3 telephone input implemented over Quasar framework",
   "scripts": {
     "serve": "vue-cli-service serve dev/serve.ts",
+    "test": "exit 0",
     "build": "rm -rf dist && cross-env NODE_ENV=production rollup --config build/rollup.config.js && rm -rf dist/component",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
@@ -59,7 +60,7 @@
     "vue3-q-tel-input.d.ts"
   ],
   "dependencies": {
-    "google-libphonenumber": "^3.2.32"
+    "libphonenumber-js": "^1.10.20"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
