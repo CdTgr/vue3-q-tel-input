@@ -155,15 +155,24 @@ export default defineComponent({
       }
       const num = phone ? this.getNumber(phone) : val;
       this.prev_value = phone && isValidPhoneNumber(phone.formatInternational(), this.country.iso2 as CountryCode) ? this.getNumber(phone, true) : this.prev_value;
-      if (num.replace(/ /g, '').length > this.prev_value.replace(/ /g, '').length) return this.setPhone(); // no need to update as its not valid
-      this.$emit('update:tel', phone ? phone.formatInternational() : val.trim());
-      this.$emit('input', phone ? phone.formatInternational() : val.trim());
+      if (num.replace(/ /g, '').length > this.prev_value.replace(/ /g, '').length) {
+        return this.setPhone(); // no need to update as its not valid
+      }
+      this.$emit('update:tel', phone ? phone.formatInternational() : '');
+      this.$emit('input', phone ? phone.formatNational() : val.trim());
     },
-    countryChanged(val?: string, force?: boolean) {
+    countryChanged(val = '') {
       this.prev_value = '01234567890123456789';
-      const value = ((force ? val : (val || this.tel).toString()) || '').trim();
-      this.phoneChanged(this.old_country ? value.replace(`+${this.old_country.dialCode}`, `+${this.country.dialCode}`) : value);
-      this.setPhone();
+      let value = ((val || this.tel).toString() || '').trim();
+      if (this.old_country) {
+        if (value.startsWith('+')) {
+          value = value.replace(`+${this.old_country.dialCode}`, '').trim();
+        }
+      }
+      this.phoneChanged(value);
+      this.$nextTick(() => {
+        this.setPhone();
+      });
     },
   },
 });

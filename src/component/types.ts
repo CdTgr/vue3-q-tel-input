@@ -11,4 +11,5 @@ export interface Country {
   languages?: string[];
   emoji?: string;
   emojiU?: string;
+  invalid?: boolean;
 }
