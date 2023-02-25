@@ -1,5 +1,5 @@
 // rollup.config.js
-import pkg from '../package.json'
+import pkg from '../package.json';
 import fs from 'fs';
 import path from 'path';
 import vue from 'rollup-plugin-vue';
@@ -17,14 +17,14 @@ import ignore from 'rollup-plugin-ignore';
 import styles from 'rollup-plugin-styles';
 
 // Get browserslist config and remove ie from es build targets
-const esbrowserslist = fs.readFileSync('./.browserslistrc')
+const esbrowserslist = fs
+  .readFileSync('./.browserslistrc')
   .toString()
   .split('\n')
-  .filter((entry) => entry && entry.substring(0, 2) !== 'ie');
+  .filter(entry => entry && entry.substring(0, 2) !== 'ie');
 
 // Extract babel preset-env config, to combine with esbrowserslist
-const babelPresetEnvConfig = require('../babel.config')
-  .presets.filter((entry) => entry[0] === '@babel/preset-env')[0][1];
+const babelPresetEnvConfig = require('../babel.config').presets.filter(entry => entry[0] === '@babel/preset-env')[0][1];
 
 const argv = minimist(process.argv.slice(2));
 
@@ -54,18 +54,18 @@ const baseConfig = {
     vue: {
       compileTemplate: true,
       template: {
-        isProduction: true
-      }
+        isProduction: true,
+      },
     },
     postVue: [
       resolve({
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue', '.css'],
-        preferBuiltins: true
+        preferBuiltins: true,
       }),
       typescript({
         sourceMap: true,
-        exclude: [ 'dev' ],
-        useTsconfigDeclarationDir: true
+        exclude: ['dev'],
+        useTsconfigDeclarationDir: true,
       }),
       scss(),
       // Process only `<style module>` blocks.
@@ -103,7 +103,7 @@ const globals = {
   // eg. jquery: '$'
   vue: 'Vue',
   quasar: 'Quasar',
-  'google-libphonenumber': 'googleLibphonenumber'
+  'libphonenumber-js': 'libphonenumber-js',
 };
 
 // Customize configs for individual targets
@@ -153,13 +153,7 @@ if (!argv.format || argv.format === 'cjs') {
       exports: 'auto',
       globals,
     },
-    plugins: [
-      replace(baseConfig.plugins.replace),
-      ...baseConfig.plugins.preVue,
-      vue(baseConfig.plugins.vue),
-      ...baseConfig.plugins.postVue,
-      babel(baseConfig.plugins.babel),
-    ],
+    plugins: [replace(baseConfig.plugins.replace), ...baseConfig.plugins.preVue, vue(baseConfig.plugins.vue), ...baseConfig.plugins.postVue, babel(baseConfig.plugins.babel)],
   };
   buildFormats.push(umdConfig);
 }
