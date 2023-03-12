@@ -89,7 +89,7 @@ _example_
 </vue3-q-tel-input>
 ```
 
-All the slots that are supported in [quasar select](https://quasar.dev/vue-components/select) field are available in the plugin as  country select control slots with prefix `cs-`.
+All the slots that are supported in [quasar select](https://quasar.dev/vue-components/select) field are available in the plugin as country select control slots with prefix `cs-`.
 
 _example_
 
@@ -117,7 +117,7 @@ _example_
 | ---------------- | ------- | -------- | ------------------------------------------------------------------------------------- |
 | required         | Boolean | No       | Shows error validation when the field is empty                                        |
 | search-text      | String  | No       | The label for the search field inside the country dropdown                            |
-| search-icon      | String  | No       | Set the icon for the search field to something else                                   |  
+| search-icon      | String  | No       | Set the icon for the search field to something else                                   |
 | default-country  | String  | No       | The default country to load. eg: us, ae, de, in etc.                                  |
 | dropdown-options | Obejct  | No       | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |
 | eager-validate   | Boolean | No       | Set to true if the validation needs not be run on loading                             |
@@ -130,3 +130,4 @@ _example_
 | update:tel | string  | Triggers when an update is made to the model value  |
 | input      | string  | Triggers when the input value changes               |
 | error      | boolean | true when the input is invalid and false when valid |
+| country    | Country | Gets back the object information of a country       |
