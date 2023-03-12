@@ -51,7 +51,7 @@ export default defineComponent({
     dense: { type: Boolean, default: () => false },
     disable: { type: Boolean, default: () => false },
   },
-  emits: ['update:tel', 'input', 'error'],
+  emits: ['update:tel', 'input', 'error', 'country'],
   setup(_, { slots }) {
     const country: Ref<Country> = ref(getDefault() as Country);
     const old_country: Ref<Country | undefined> = ref(undefined);
@@ -97,6 +97,8 @@ export default defineComponent({
     country: {
       immediate: true,
       handler() {
+        this.$emit('country', this.country);
+        console.log('coutry changed');
         this?.$nextTick(() => {
           this.old_country = this.country;
         });
