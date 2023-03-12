@@ -98,7 +98,6 @@ export default defineComponent({
       immediate: true,
       handler() {
         this.$emit('country', this.country);
-        console.log('coutry changed');
         this?.$nextTick(() => {
           this.old_country = this.country;
         });

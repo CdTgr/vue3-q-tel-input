@@ -2,11 +2,14 @@
   <div id="app">
     <div class="row">
       <div class="col-3 offset-3 q-mt-lg">
-        <vue3-q-tel-input use-icon v-model:tel="input" searchText="Search using code/country" dense filled default-country="de" @country="country" />
+        <vue3-q-tel-input use-icon v-model:tel="input" searchText="Search using code/country" dense filled default-country="de" @country="c => (country = c)" />
       </div>
     </div>
     <div>entered telephone number : {{ input }}</div>
-    <div>Country information: {{ country }}</div>
+    <div>
+      Country :
+      <pre>{{ JSON.stringify(country, null, 4) }}</pre>
+    </div>
   </div>
 </template>
 
@@ -22,7 +25,7 @@ export default defineComponent({
   data() {
     return {
       input: '',
-      country: {},
+      country: null,
     };
   },
 });
