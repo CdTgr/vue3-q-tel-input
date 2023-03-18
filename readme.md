@@ -122,6 +122,7 @@ _example_
 | dropdown-options | Obejct  | No       | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |
 | eager-validate   | Boolean | No       | Set to true if the validation needs not be run on loading                             |
 | use-icon         | Boolean | No       | Set to use the emoji icon instead of the default flag images                          |
+| no-results-text  | String  | No       | Set a string when the search results nothing, default: 'No results found'             |
 
 #### Events
 
