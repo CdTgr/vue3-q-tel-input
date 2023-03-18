@@ -64,6 +64,7 @@ export default defineComponent({
     country: { type: Object as PropType<Country>, required: true },
     searchText: { type: String, default: () => 'Search' },
     searchIcon: { type: String, default: () => 'search' },
+    noResultsText: { type: String, default: () => 'No results found' },
     useIcon: { type: Boolean, default: () => false },
   },
   emits: ['countryChanged', 'update:country'],
@@ -93,7 +94,7 @@ export default defineComponent({
       const newCountries: CountryOption[] = needle === '' ? [...countries] : filterCountries(needle);
       if (newCountries.length === 0)
         newCountries.push({
-          name: 'No results found',
+          name: this.noResultsText,
           dialCode: '',
           iso2: '',
           disabled: true,
