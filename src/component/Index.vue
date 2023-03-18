@@ -10,6 +10,7 @@
         :readonly="readonly"
         :disable="disable"
         :dense="dense"
+        :no-results-text="noResultsText"
         v-bind="dropdownOptions"
         class="no-border-field-before no-padding-field font-reduced-input-adon"
       >
@@ -44,6 +45,7 @@ export default defineComponent({
     searchText: { type: String, default: () => 'Search' },
     searchIcon: { type: String, default: () => 'search' },
     dropdownOptions: { type: Object, default: () => ({}) },
+    noResultsText: { type: String, default: () => 'No results found' },
     defaultCountry: { type: String, default: () => 'us' },
     eagerValidate: { type: Boolean, default: () => true },
     useIcon: { type: Boolean, default: () => false },
@@ -51,7 +53,7 @@ export default defineComponent({
     dense: { type: Boolean, default: () => false },
     disable: { type: Boolean, default: () => false },
   },
-  emits: ['update:tel', 'input', 'error'],
+  emits: ['update:tel', 'input', 'error', 'country'],
   setup(_, { slots }) {
     const country: Ref<Country> = ref(getDefault() as Country);
     const old_country: Ref<Country | undefined> = ref(undefined);
@@ -97,6 +99,7 @@ export default defineComponent({
     country: {
       immediate: true,
       handler() {
+        this.$emit('country', this.country);
         this?.$nextTick(() => {
           this.old_country = this.country;
         });
