@@ -1,11 +1,19 @@
 <template>
-  <q-input :error="has_error" :model-value="number" class="vue3-q-tel-input no-inherit-feedback"
-    @update:model-value="phoneChanged" :maxlength="prev_value.length" v-bind="$props">
+  <q-input :error="has_error" :model-value="number" class="vue3-q-tel-input no-inherit-feedback" @update:model-value="phoneChanged" :maxlength="prev_value.length" v-bind="$props">
     <template #prepend>
-      <CountrySelection :use-icon="useIcon" :search-text="searchText" :search-icon="searchIcon" v-model:country="country"
-        @countryChanged="countryChanged()" :readonly="readonly" :disable="disable" :dense="dense"
-        :no-results-text="noResultsText" v-bind="dropdownOptions"
-        class="no-border-field-before no-padding-field font-reduced-input-adon">
+      <CountrySelection
+        :use-icon="useIcon"
+        :search-text="searchText"
+        :search-icon="searchIcon"
+        v-model:country="country"
+        @countryChanged="countryChanged()"
+        :readonly="readonly"
+        :disable="disable"
+        :dense="dense"
+        :no-results-text="noResultsText"
+        v-bind="dropdownOptions"
+        class="no-border-field-before no-padding-field font-reduced-input-adon"
+      >
         <template v-for="slot of countrySelectSlots" v-slot:[slot]="scope">
           <slot :name="slot" v-bind="scope ?? {}"></slot>
         </template>
@@ -46,7 +54,7 @@ export default defineComponent({
     disable: { type: Boolean, default: () => false },
   },
   emits: ['update:tel', 'input', 'error', 'country'],
-  setup (_, { slots }) {
+  setup(_, { slots }) {
     const country: Ref<Country> = ref(getDefault() as Country);
     const old_country: Ref<Country | undefined> = ref(undefined);
     const number: Ref<string> = ref('');
@@ -70,19 +78,19 @@ export default defineComponent({
       countrySelectSlots,
     };
   },
-  mounted () {
+  mounted() {
     this.country = getDefault(this.defaultCountry) as Country;
   },
   watch: {
     tel: {
       immediate: true,
-      handler () {
+      handler() {
         this.setPhone();
       },
     },
     defaultCountry: {
       immediate: true,
-      handler () {
+      handler() {
         if (this.defaultCountry) {
           this.country = getDefault(this.defaultCountry) as Country;
         }
@@ -90,7 +98,7 @@ export default defineComponent({
     },
     country: {
       immediate: true,
-      handler () {
+      handler() {
         this.$emit('country', this.country);
         this?.$nextTick(() => {
           this.old_country = this.country;
@@ -99,7 +107,7 @@ export default defineComponent({
     },
   },
   methods: {
-    getNumber (instance: PhoneNumber, international = false): string {
+    getNumber(instance: PhoneNumber, international = false): string {
       if (!this.phone_number) {
         return '';
       }
@@ -109,7 +117,7 @@ export default defineComponent({
       }
       return phone;
     },
-    setPhone () {
+    setPhone() {
       let country = this.country;
       if (this.tel.toString() !== '') {
         const inCountry = getCountryCodeFromPhoneNumber(this.tel.toString());
@@ -131,7 +139,7 @@ export default defineComponent({
       }
       this.$emit('error', this.has_error);
     },
-    phoneChanged (val: string | number | null) {
+    phoneChanged(val: string | number | null) {
       val = val === null ? '' : val.toString();
       let phone: PhoneNumber | undefined;
       try {
@@ -156,7 +164,7 @@ export default defineComponent({
       this.$emit('update:tel', phone ? phone.formatInternational() : '');
       this.$emit('input', phone ? phone.formatNational() : val.trim());
     },
-    countryChanged (val = '') {
+    countryChanged(val = '') {
       this.prev_value = '01234567890123456789';
       let value = ((val || this.tel).toString() || '').trim();
       if (this.old_country) {
