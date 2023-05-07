@@ -1,5 +1,5 @@
 <template>
-  <q-input :error="has_error" :model-value="number" class="vue3-q-tel-input no-inherit-feedback" @update:model-value="phoneChanged" :maxlength="prev_value.length" :v-bind="$props">
+  <q-input :error="has_error" :model-value="number" class="vue3-q-tel-input no-inherit-feedback" @update:model-value="phoneChanged" :maxlength="prev_value.length" v-bind="$props">
     <template #prepend>
       <CountrySelection
         :use-icon="useIcon"
