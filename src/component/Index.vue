@@ -52,6 +52,7 @@ export default defineComponent({
     readonly: { type: Boolean, default: () => false },
     dense: { type: Boolean, default: () => false },
     disable: { type: Boolean, default: () => false },
+    disableAutoCountrySelection: { type: Boolean, default: () => false },
   },
   emits: ['update:tel', 'input', 'error', 'country'],
   setup(_, { slots }) {
@@ -119,7 +120,7 @@ export default defineComponent({
     },
     setPhone() {
       let country = this.country;
-      if (this.tel.toString() !== '') {
+      if (!this.disableAutoCountrySelection && this.tel.toString() !== '') {
         const inCountry = getCountryCodeFromPhoneNumber(this.tel.toString());
         if (inCountry && this.country.iso2 !== inCountry.iso2) {
           country = inCountry;
