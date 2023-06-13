@@ -120,7 +120,7 @@ export default defineComponent({
     },
     setPhone() {
       let country = this.country;
-      if (this.tel.toString() !== '' && !this.disableAutoCountrySelection) {
+      if (!this.disableAutoCountrySelection && this.tel.toString() !== '') {
         const inCountry = getCountryCodeFromPhoneNumber(this.tel.toString());
         if (inCountry && this.country.iso2 !== inCountry.iso2) {
           country = inCountry;
