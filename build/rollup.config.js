@@ -1,20 +1,22 @@
+/* eslint-disable no-undef */
+
 // rollup.config.js
-import pkg from '../package.json';
-import fs from 'fs';
-import path from 'path';
-import vue from 'rollup-plugin-vue';
-import alias from '@rollup/plugin-alias';
-import commonjs from '@rollup/plugin-commonjs';
-import resolve from '@rollup/plugin-node-resolve';
-import replace from '@rollup/plugin-replace';
-import babel from '@rollup/plugin-babel';
-import postcss from 'rollup-plugin-postcss';
-import { terser } from 'rollup-plugin-terser';
-import minimist from 'minimist';
-import typescript from 'rollup-plugin-typescript2';
-import scss from 'rollup-plugin-scss';
-import ignore from 'rollup-plugin-ignore';
-import styles from 'rollup-plugin-styles';
+const pkg = require('../package.json');
+const fs = require('fs');
+const path = require('path');
+const vue = require('rollup-plugin-vue');
+const alias = require('@rollup/plugin-alias');
+const commonjs = require('@rollup/plugin-commonjs');
+const resolve = require('@rollup/plugin-node-resolve');
+const replace = require('@rollup/plugin-replace');
+const babel = require('@rollup/plugin-babel');
+const postcss = require('rollup-plugin-postcss');
+const { terser } = require('rollup-plugin-terser');
+const minimist = require('minimist');
+const typescript = require('rollup-plugin-typescript2');
+const scss = require('rollup-plugin-scss');
+const ignore = require('rollup-plugin-ignore');
+const styles = require('rollup-plugin-styles');
 
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs
@@ -45,6 +47,7 @@ const baseConfig = {
       }),
       scss({
         outputStyle: 'compressed',
+        fileName: `${pkg.name}.min.css`,
       }),
     ],
     replace: {
@@ -187,4 +190,4 @@ if (!argv.format || argv.format === 'iife') {
 }
 
 // Export config
-export default buildFormats;
+module.exports = buildFormats;
