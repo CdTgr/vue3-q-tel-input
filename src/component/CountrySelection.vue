@@ -14,7 +14,7 @@
     v-bind="$props"
   >
     <template v-slot:option="scope">
-      <div class="flex items-center q-pa-xs mdi-border-bottom no-wrap" v-bind="scope.itemProps">
+      <div class="flex items-center q-pa-xs no-wrap" v-bind="scope.itemProps">
         <span v-if="!!scope.opt.iso2" :class="!useIcon ? ['v3q_tel__flag', scope.opt.iso2.toLowerCase()] : 'q-mr-sm'">{{ useIcon ? scope.opt.emoji : '' }}</span>
         <span v-if="!!scope.opt.dialCode" class="q-ml-sm text-no-wrap">(+{{ scope.opt.dialCode }})</span>
         <span :class="['q-ml-sm text-no-wrap ellipsis', { 'disabled full-width text-center': scope.opt.disabled }]">{{ scope.opt.name }}</span>
