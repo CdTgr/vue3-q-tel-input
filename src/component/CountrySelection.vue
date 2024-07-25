@@ -115,7 +115,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../styles/flags';
 .v3-q-tel-input--country {
   .q-field__control {
@@ -133,5 +133,8 @@ export default defineComponent({
   bottom: 0 !important;
   left: 0 !important;
   right: 0 !important;
+}
+.mdi-border-bottom::before {
+  content: ""
 }
 </style>
