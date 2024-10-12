@@ -115,9 +115,11 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../styles/flags';
+
 .v3-q-tel-input--country {
+  // Quasar overrides
   .q-field__control {
     background: none !important;
     &::before {
@@ -128,6 +130,8 @@ export default defineComponent({
     border: none !important;
   }
 }
+</style>
+<style lang="scss" scoped>
 .v3-q-tel--country-selector {
   position: sticky !important;
   bottom: 0 !important;
@@ -135,6 +139,6 @@ export default defineComponent({
   right: 0 !important;
 }
 .mdi-border-bottom::before {
-  content: ""
+  content: '';
 }
 </style>
