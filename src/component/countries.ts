@@ -3,24 +3,59 @@ import { countryInformation as all } from './data'
 
 export default all
 
-export const getDefault = (country = 'us') => all.find(a => a.iso2 === country.trim().toUpperCase())
+export const getDefault = (iso2 = 'us') => all.find(a => a.iso2 === iso2.trim().toUpperCase())
 
-export const getCountryCodeFromPhoneNumber = (number: string) => {
-  number = number.trim()
-  if (number.indexOf('+') === 0) {
-    number = number.slice(1)
+export const isNumberInCountry = (dial: string, country: Country) => {
+  if (country.dialCode === dial) {
+    return 1
   }
-  return all.find(f => number.indexOf(f.dialCode) === 0)
+
+  if (!dial.startsWith(country.dialCode) && !country.dialCode.startsWith(dial)) {
+    return 0
+  }
+
+  // need to compare the suffixes
+  const newTerm = dial.replace(country.dialCode, '')
+  const hasSub = country.dialCodeSuffixes.find(suffix => newTerm.startsWith(suffix) || suffix.startsWith(newTerm))
+
+  if (hasSub) {
+    return 1
+  }
+
+  console.log('here', country, dial, newTerm)
+
+  return country.dialCodeSuffixes.length ? 0 : 2
 }
 
-export const getCountryByDialCode = (val = '') => all.find(f => f.dialCode && val.indexOf(`+${f.dialCode}`) !== -1)
+export const getCountryCodeFromPhoneNumber = (dial: string) => {
+  dial = dial.trim()
+  if (!dial.startsWith('+')) {
+    return
+  }
+
+  return (
+    all.find(country => isNumberInCountry(dial, country) === 1) ||
+    all.find(country => isNumberInCountry(dial, country) === 2)
+  )
+}
+
+export const getCountryByDialCode = (val = '') =>
+  all.find(country => isNumberInCountry(val, country) === 1) ||
+  all.find(country => isNumberInCountry(val, country) === 2)
 
 export const filterCountries = (term: string): Country[] => {
-  term = term.indexOf('+') === 0 ? term.replace('+', '') : term
-  return all.filter(f => {
-    if (f.dialCode.toLowerCase().indexOf(term) !== -1) return true
-    if (f.iso2.toLowerCase().indexOf(term) !== -1) return true
-    if (f.name.toLowerCase().indexOf(term) !== -1) return true
-    return false
+  term = term.toLowerCase()
+
+  if (term.startsWith('+')) {
+    return (
+      all.filter(country => isNumberInCountry(term, country) === 1) ||
+      all.filter(country => isNumberInCountry(term, country) === 2)
+    )
+  }
+
+  return all.filter(country => {
+    return country.iso2.toLowerCase().includes(term) || country.name.toLowerCase().includes(term)
   })
 }
+
+export const getProperNumber = (phone: string) => phone.match(/[\+\d]+/g)?.join('') || phone
