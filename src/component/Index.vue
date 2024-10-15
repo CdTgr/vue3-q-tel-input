@@ -1,19 +1,20 @@
 <template>
   <q-input
-    :error="hasError"
-    :model-value="number"
-    class="vue3-q-tel-input no-inherit-feedback"
-    @update:model-value="phoneChanged"
-    :maxlength="prevValue.length"
     v-bind="$props"
+    :error="hasError"
+    v-model="dial"
+    @update:model-value="phoneChanged()"
+    class="vue3-q-tel-input no-inherit-feedback"
+    :maxlength="prevValue.length"
+    type="tel"
   >
     <template #prepend>
-      <CountrySelection
+      <country-selection
         :use-icon="useIcon"
         :search-text="searchText"
         :search-icon="searchIcon"
-        v-model:country="country"
-        @countryChanged="countryChanged()"
+        :country="countryModel"
+        @update:country="countryChanged"
         :readonly="readonly"
         :disable="disable"
         :dense="dense"
@@ -24,7 +25,7 @@
         <template v-for="slot of countrySelectSlots" v-slot:[slot]="scope">
           <slot :name="slot" v-bind="scope ?? {}"></slot>
         </template>
-      </CountrySelection>
+      </country-selection>
     </template>
     <template v-for="slot of inputSlots" v-slot:[slot]="scope">
       <slot :name="slot" v-bind="scope ?? {}"></slot>
@@ -35,13 +36,14 @@
 <script lang="ts" setup>
 import CountrySelection from './CountrySelection.vue'
 import { Country } from './types'
-import { CountryCode, isValidPhoneNumber, parsePhoneNumber, PhoneNumber } from 'libphonenumber-js'
-import { getCountryByDialCode, getDefault, getCountryCodeFromPhoneNumber } from './countries'
+import { CountryCode, isValidPhoneNumber, parsePhoneNumber } from 'libphonenumber-js'
+import { getCountryByDialCode, getDefault, getProperNumber } from './countries'
 import { QInput } from 'quasar'
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 
+const DEFAULT_COUNTRY = 'de'
+
 export type Vue3QTelInputProps = {
-  tel?: string | number
   required?: boolean
   searchText?: string
   searchIcon?: string
@@ -57,14 +59,13 @@ export type Vue3QTelInputProps = {
 }
 
 const $props = withDefaults(defineProps<Vue3QTelInputProps>(), {
-  tel: '',
   required: false,
   searchText: 'Search',
   searchIcon: 'search',
   dropdownOptions: () => ({}),
   noResultsText: 'No results found',
-  defaultCountry: 'us',
-  eagerValidate: true,
+  defaultCountry: DEFAULT_COUNTRY,
+  eagerValidate: false,
   useIcon: false,
   readonly: false,
   dense: false,
@@ -72,24 +73,21 @@ const $props = withDefaults(defineProps<Vue3QTelInputProps>(), {
   disableAutoCountrySelection: false,
 })
 
-const tel = defineModel<string>('tel', {
+const $model = defineModel<string>({
   default: () => '',
 })
 
 const $emit = defineEmits<{
   input: [string]
   error: [boolean]
-  country: [Country]
 }>()
 
 const $slots = defineSlots()
 
-const country = ref<Country>(getDefault() as Country)
-const oldCountry = ref<Country | undefined>(undefined)
-const number = ref('')
+const countryModel = defineModel<Country>('country', { default: () => getDefault(DEFAULT_COUNTRY) })
+const dial = ref('')
 const hasError = ref(false)
 const prevValue = ref('01234567890123456789')
-const phoneNumber = ref<PhoneNumber | undefined>(undefined)
 
 const inputSlots = computed(() => Object.keys($slots).filter(slotName => !slotName.startsWith('cs-')))
 const countrySelectSlots = computed(() =>
@@ -99,115 +97,93 @@ const countrySelectSlots = computed(() =>
 )
 
 onMounted(() => {
-  country.value = getDefault($props.defaultCountry) as Country
+  countryModel.value = getDefault($props.defaultCountry) as Country
 })
 
-const getNumber = (instance: PhoneNumber, international = false): string => {
-  if (!phoneNumber.value) {
-    return ''
+const completeNumber = computed(() => {
+  if (dial.value.startsWith('+')) {
+    return getProperNumber(dial.value)
   }
 
-  let phone: string = international ? instance.formatInternational() : instance.formatNational()
-  if (phone.indexOf('0') === 0) {
-    phone = phone.replace(/^0/, '')
+  if (countryModel.value?.dialCode) {
+    return getProperNumber(`${countryModel.value.dialCode}${dial.value}`)
   }
 
-  return phone
-}
+  return getProperNumber(`+${dial.value}`)
+})
 
-const setPhone = () => {
-  let currentCountry = country.value
-  if (!$props.disableAutoCountrySelection && tel.value.toString() !== '') {
-    const inCountry = getCountryCodeFromPhoneNumber(tel.value.toString())
-    if (inCountry && country.value.iso2 !== inCountry.iso2) {
-      currentCountry = inCountry
-      nextTick(() => {
-        country.value = currentCountry
-      })
-    }
+const isValid = computed(() => {
+  if (!countryModel.value) {
+    return false
   }
 
   try {
-    phoneNumber.value = parsePhoneNumber(tel.value.toString().trim(), currentCountry.iso2 as CountryCode)
-    number.value = getNumber(phoneNumber.value)
-    hasError.value = !isValidPhoneNumber(phoneNumber.value.formatInternational(), currentCountry.iso2 as CountryCode)
-  } catch (e) {
-    phoneNumber.value = undefined
-    hasError.value = $props.eagerValidate ? (tel.value.toString().trim() === '' ? $props.required : true) : false
-    number.value = tel.value.toString().trim()
+    const parser = parsePhoneNumber(completeNumber.value, countryModel.value.iso2 as CountryCode)
+    return isValidPhoneNumber(parser.formatInternational(), countryModel.value.iso2 as CountryCode)
+  } catch {}
+
+  return false
+})
+
+const phoneChanged = () => {
+  if (!dial.value) {
+    return
   }
 
-  $emit('error', hasError.value)
-}
-
-const phoneChanged = (val: string | number | null) => {
-  val = val === null ? '' : val.toString()
-  let phone: PhoneNumber | undefined
-  try {
-    phone = parsePhoneNumber(val.trim(), country.value.iso2 as CountryCode)
-  } catch {
-    phone = undefined
-  }
-  const filtered_val = val.replace(/ /g, '')
-  if (filtered_val.length > 2 && filtered_val.indexOf('+') === 0) {
-    // some country code is in action
-    const newCountry = getCountryByDialCode(filtered_val)
-    if (newCountry) {
-      country.value = newCountry
-      countryChanged(filtered_val.replace(`+${newCountry.dialCode}`, ''))
+  const determinedCountry = getCountryByDialCode(completeNumber.value)
+  if (determinedCountry) {
+    const parsedNumber = (() => {
+      try {
+        return parsePhoneNumber(completeNumber.value, determinedCountry.iso2 as CountryCode)
+      } catch {}
+    })()
+    if (parsedNumber) {
+      countryModel.value = determinedCountry
+      dial.value = getProperNumber(parsedNumber.formatNational().replace(/^0/, ''))
+      $model.value = parsedNumber.formatInternational()
     }
   }
-
-  const num = phone ? getNumber(phone) : val
-  prevValue.value =
-    phone && isValidPhoneNumber(phone.formatInternational(), country.value.iso2 as CountryCode)
-      ? getNumber(phone, true)
-      : prevValue.value
-
-  if (num.replace(/ /g, '').length > prevValue.value.replace(/ /g, '').length) {
-    return setPhone() // no need to update as its not valid
-  }
-
-  tel.value = phone ? phone.formatInternational() : ''
-  $emit('input', phone ? phone.formatNational() : val.trim())
 }
 
-const countryChanged = (val = '') => {
-  prevValue.value = '01234567890123456789'
-  let value = ((val || tel.value).toString() || '').trim()
-  if (oldCountry.value) {
-    if (value.startsWith('+')) {
-      value = value.replace(`+${oldCountry.value.dialCode}`, '').trim()
+const countryChanged = (selectedCountry: Country) => {
+  countryModel.value = selectedCountry
+  nextTick(phoneChanged)
+}
+
+watch(
+  () => $model.value,
+  (val, oldVal) => {
+    console.log({ val, oldVal })
+    if (oldVal && getProperNumber(val) === completeNumber.value) {
+      return
     }
-  }
 
-  phoneChanged(value)
-  nextTick(setPhone)
-}
+    if (!oldVal) {
+      dial.value = getProperNumber(val)
+    }
 
-watch(() => $props.tel, setPhone, { immediate: true })
+    nextTick(phoneChanged)
+  },
+  { immediate: true },
+)
+
+watch(
+  () => isValid.value,
+  () => {
+    hasError.value = !isValid.value
+    $emit('error', !isValid.value)
+  },
+  { immediate: $props.eagerValidate },
+)
+
 watch(
   () => $props.defaultCountry,
   () => {
     if ($props.defaultCountry) {
-      country.value = getDefault($props.defaultCountry) as Country
+      countryModel.value = getDefault($props.defaultCountry) as Country
     }
   },
-  {
-    immediate: true,
-  },
-)
-watch(
-  () => country.value,
-  () => {
-    $emit('country', country.value)
-    nextTick(() => {
-      oldCountry.value = country.value
-    })
-  },
-  {
-    immediate: true, // TODO: check if this is needed
-  },
+  { immediate: true },
 )
 </script>
 

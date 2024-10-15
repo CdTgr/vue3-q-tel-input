@@ -1,15 +1,10 @@
-import { CountryCode } from 'libphonenumber-js';
+import type { CountryCode } from 'libphonenumber-js'
 
-export interface Country {
-  name: string;
-  iso2: CountryCode | string;
-  dialCode: string;
-  native?: string;
-  continent_name?: string;
-  capital?: string;
-  currency?: string;
-  languages?: string[];
-  emoji?: string;
-  emojiU?: string;
-  invalid?: boolean;
+export type Country = {
+  name: string
+  iso2: CountryCode | string
+  dialCode: string
+  dialCodeSuffixes: string[]
+  flag?: string
+  invalid?: boolean
 }
