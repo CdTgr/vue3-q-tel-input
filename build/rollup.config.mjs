@@ -1,34 +1,31 @@
-// rollup.config.js
-import pkg from '../package.json';
-import fs from 'fs';
-import path from 'path';
-import vue from 'rollup-plugin-vue';
-import alias from '@rollup/plugin-alias';
-import commonjs from '@rollup/plugin-commonjs';
-import resolve from '@rollup/plugin-node-resolve';
-import replace from '@rollup/plugin-replace';
-import babel from '@rollup/plugin-babel';
-import postcss from 'rollup-plugin-postcss';
-import { terser } from 'rollup-plugin-terser';
-import minimist from 'minimist';
-import typescript from 'rollup-plugin-typescript2';
-import scss from 'rollup-plugin-scss';
-import ignore from 'rollup-plugin-ignore';
-import styles from 'rollup-plugin-styles';
+// rollup.config.mjs
+import { readFileSync } from 'fs'
+import { join, resolve } from 'path'
+import vue from 'rollup-plugin-vue'
+import alias from '@rollup/plugin-alias'
+import commonjs from '@rollup/plugin-commonjs'
+import nodeResolve from '@rollup/plugin-node-resolve'
+import replace from '@rollup/plugin-replace'
+import babel from '@rollup/plugin-babel'
+import postcss from 'rollup-plugin-postcss'
+import { terser } from 'rollup-plugin-terser'
+import minimist from 'minimist'
+import typescript from 'rollup-plugin-typescript2'
+import scss from 'rollup-plugin-scss'
+import ignore from 'rollup-plugin-ignore'
+import styles from 'rollup-plugin-styles'
+
+const projectRoot = resolve('.')
+console.log({ projectRoot })
 
 // Get browserslist config and remove ie from es build targets
-const esbrowserslist = fs
-  .readFileSync('./.browserslistrc')
-  .toString()
+const esbrowserslist = readFileSync(join(projectRoot, '.browserslistrc'), 'utf-8')
   .split('\n')
-  .filter(entry => entry && entry.substring(0, 2) !== 'ie');
+  .filter(entry => entry && entry.substring(0, 2) !== 'ie')
 
-// Extract babel preset-env config, to combine with esbrowserslist
-const babelPresetEnvConfig = require('../babel.config').presets.filter(entry => entry[0] === '@babel/preset-env')[0][1];
+const pkg = JSON.parse(readFileSync(join(projectRoot, 'package.json'), 'utf-8'))
 
-const argv = minimist(process.argv.slice(2));
-
-const projectRoot = path.resolve(__dirname, '..');
+const argv = minimist(process.argv.slice(2))
 
 const baseConfig = {
   input: 'src/entry.ts',
@@ -39,7 +36,7 @@ const baseConfig = {
         entries: [
           {
             find: '@',
-            replacement: `${path.resolve(projectRoot, 'src')}`,
+            replacement: `${resolve(projectRoot, 'src')}`,
           },
         ],
       }),
@@ -58,7 +55,7 @@ const baseConfig = {
       },
     },
     postVue: [
-      resolve({
+      nodeResolve({
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue', '.css'],
         preferBuiltins: true,
       }),
@@ -85,7 +82,9 @@ const baseConfig = {
       babelHelpers: 'bundled',
     },
   },
-};
+}
+
+const babelPresetEnvConfig = {}
 
 // ESM/UMD/IIFE shared settings: externals
 // Refer to https://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency
@@ -94,7 +93,7 @@ const external = [
   // eg. 'jquery'
   'vue',
   ...Object.keys(pkg.devDependencies),
-];
+]
 
 // UMD/IIFE shared settings: output.globals
 // Refer to https://rollupjs.org/guide/en#output-globals for details
@@ -104,10 +103,10 @@ const globals = {
   vue: 'Vue',
   quasar: 'Quasar',
   'libphonenumber-js': 'libphonenumber-js',
-};
+}
 
 // Customize configs for individual targets
-const buildFormats = [];
+const buildFormats = []
 if (!argv.format || argv.format === 'es') {
   const esConfig = {
     ...baseConfig,
@@ -137,8 +136,8 @@ if (!argv.format || argv.format === 'es') {
       }),
       styles(),
     ],
-  };
-  buildFormats.push(esConfig);
+  }
+  buildFormats.push(esConfig)
 }
 
 if (!argv.format || argv.format === 'cjs') {
@@ -153,9 +152,15 @@ if (!argv.format || argv.format === 'cjs') {
       exports: 'auto',
       globals,
     },
-    plugins: [replace(baseConfig.plugins.replace), ...baseConfig.plugins.preVue, vue(baseConfig.plugins.vue), ...baseConfig.plugins.postVue, babel(baseConfig.plugins.babel)],
-  };
-  buildFormats.push(umdConfig);
+    plugins: [
+      replace(baseConfig.plugins.replace),
+      ...baseConfig.plugins.preVue,
+      vue(baseConfig.plugins.vue),
+      ...baseConfig.plugins.postVue,
+      babel(baseConfig.plugins.babel),
+    ],
+  }
+  buildFormats.push(umdConfig)
 }
 
 if (!argv.format || argv.format === 'iife') {
@@ -182,9 +187,9 @@ if (!argv.format || argv.format === 'iife') {
         },
       }),
     ],
-  };
-  buildFormats.push(unpkgConfig);
+  }
+  buildFormats.push(unpkgConfig)
 }
 
 // Export config
-export default buildFormats;
+export default buildFormats
