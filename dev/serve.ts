@@ -1,3 +1,4 @@
+import 'quasar/src/css/index.sass'
 import { createApp } from 'vue'
 import Dev from './serve.vue'
 import { qyasarOptions } from './quasar-user-options'
