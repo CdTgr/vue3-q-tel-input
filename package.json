@@ -8,7 +8,7 @@
     "preview": "vite preview",
     "build-only": "rm -rf dist && vite build",
     "type-check": "vue-tsc --build --force",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore --ignore-path .eslintignore",
+    "lint": "eslint --fix src/",
     "format": "prettier --write src/"
   },
   "repository": {
