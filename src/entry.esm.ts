@@ -1,7 +1,7 @@
 import { App, DefineComponent, Plugin } from 'vue'
 
 // Import vue component
-import component from '@/component/Index.vue'
+import component from '../src/component/Index.vue'
 
 // Define typescript interfaces for installable component
 type InstallableComponent = DefineComponent<{}, {}, unknown> & {

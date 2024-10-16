@@ -4,11 +4,11 @@
       <div class="col-3 offset-3 q-mt-lg">
         <vue3-q-tel-input
           v-model="input"
-          searchText="Search using code/country"
+          v-model:country="country"
+          search-text="Search using code/country"
           dense
           filled
           default-country="de"
-          v-model:country="country"
           no-results-text="Sample here"
         />
       </div>

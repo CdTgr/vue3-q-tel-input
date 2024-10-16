@@ -139,7 +139,7 @@ const phoneChanged = () => {
     })()
     if (parsedNumber) {
       countryModel.value = determinedCountry
-      dial.value = getProperNumber(parsedNumber.formatNational().replace(/^0/, ''))
+      dial.value = parsedNumber.formatNational().replace(/^0/, '')
       $model.value = parsedNumber.formatInternational()
     }
   }
@@ -153,7 +153,6 @@ const countryChanged = (selectedCountry: Country) => {
 watch(
   () => $model.value,
   (val, oldVal) => {
-    console.log({ val, oldVal })
     if (oldVal && getProperNumber(val) === completeNumber.value) {
       return
     }

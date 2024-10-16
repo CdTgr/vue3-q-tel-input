@@ -6,6 +6,7 @@
     "declaration": true,
     "noImplicitAny": true,
     "declarationDir": "dist",
+    "outDir": "dist",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "importHelpers": true,
@@ -17,9 +18,10 @@
     "baseUrl": ".",
     "types": ["node", "vue"],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "rollup/parseAst": ["./node_modules/rollup/dist/parseAst"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "exclude": ["node_modules", "dist"]
+  "include": ["src"]
 }

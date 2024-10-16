@@ -1,6 +1,6 @@
 import { writeFileSync } from 'fs'
 import { join } from 'path'
-import type { Country } from '@/component/types'
+import type { Country } from './src/component/types'
 
 type RestCountry = {
   name: {
