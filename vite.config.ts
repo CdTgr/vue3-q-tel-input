@@ -31,9 +31,15 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/entry.ts'),
       name: 'vue3-q-tel-input',
-      fileName: 'index',
+      fileName: 'vue3-q-tel-input',
+      formats: ['es', 'cjs'],
     },
-    sourcemap: true,
+    sourcemap: false,
+    minify: 'terser',
+    terserOptions: {
+      compress: true,
+      mangle: true,
+    },
     rollupOptions: {
       onwarn: (warning, warn) => {
         // There is a [bug](https://github.com/vuejs/babel-plugin-jsx/issues/697)
@@ -48,6 +54,7 @@ export default defineConfig({
       output: {
         // Provide global variables to use in the UMD build
         // for externalized deps
+        sourcemap: false,
         globals: {
           vue: 'Vue',
           quasar: 'Quasar',

@@ -1,9 +1,9 @@
 {
   "name": "vue3-q-tel-input",
-  "version": "1.1.9",
+  "version": "1.1.9-dev2",
   "description": "Vue 3 telephone input implemented over Quasar framework",
   "scripts": {
-    "serve": "vite",
+    "dev": "NODE_ENV=development vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "rm -rf dist && vite build",
@@ -51,12 +51,13 @@
     "vue phone input",
     "vue phone international"
   ],
-  "main": "dist/vue3-q-tel-input.ssr.js",
-  "module": "dist/vue3-q-tel-input.esm.js",
-  "browser": "dist/vue3-q-tel-input.esm.js",
-  "unpkg": "dist/vue3-q-tel-input.min.js",
+  "main": "dist/vue3-q-tel-input.js",
+  "module": "dist/vue3-q-tel-input.mjs",
+  "browser": "dist/entry.esm.js",
+  "unpkg": "dist/vue3-q-tel-input.js",
   "files": [
     "dist/*",
+    "!dist/component",
     "vue3-q-tel-input.d.ts"
   ],
   "dependencies": {
@@ -88,6 +89,7 @@
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
     "quasar": "^2.17.0",
+    "rollup": "^4.24.0",
     "sass": "^1.79.5",
     "sass-loader": "^16.0.2",
     "typescript": "^5.6.3",

@@ -22,8 +22,6 @@ export const isNumberInCountry = (dial: string, country: Country) => {
     return 1
   }
 
-  console.log('here', country, dial, newTerm)
-
   return country.dialCodeSuffixes.length ? 0 : 2
 }
 
