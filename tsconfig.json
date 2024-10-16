@@ -16,7 +16,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": ["node", "vue"],
+    "types": ["vue"],
     "paths": {
       "@/*": ["src/*"],
       "rollup/parseAst": ["./node_modules/rollup/dist/parseAst"]
