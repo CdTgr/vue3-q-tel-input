@@ -10,7 +10,6 @@
           filled
           default-country="de"
           no-results-text="Sample here"
-          readonly
         />
         <!-- <vue3-q-tel-input v-model="input" filled>
           <template #append>
