@@ -9,7 +9,8 @@
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.mjs --format es",
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.mjs --format cjs",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.mjs --format iife",
-    "lint": "eslint src --ext .ts,.vue"
+    "lint": "eslint --fix --ignore-pattern .gitignore  src/",
+    "format": "prettier --write src/"
   },
   "repository": {
     "type": "git",

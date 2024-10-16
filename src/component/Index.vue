@@ -1,12 +1,12 @@
 <template>
   <q-input
     v-bind="$props"
-    :error="hasError"
     v-model="dial"
-    @update:model-value="phoneChanged()"
+    :error="hasError"
     class="vue3-q-tel-input no-inherit-feedback"
     :maxlength="prevValue.length"
     type="tel"
+    @update:model-value="phoneChanged()"
   >
     <template #prepend>
       <country-selection
@@ -14,21 +14,21 @@
         :search-text="searchText"
         :search-icon="searchIcon"
         :country="countryModel"
-        @update:country="countryChanged"
         :readonly="readonly"
         :disable="disable"
         :dense="dense"
         :no-results-text="noResultsText"
         v-bind="dropdownOptions"
         class="no-border-field-before no-padding-field font-reduced-input-adon"
+        @update:country="countryChanged"
       >
-        <template v-for="slot of countrySelectSlots" v-slot:[slot]="scope">
-          <slot :name="slot" v-bind="scope ?? {}"></slot>
+        <template v-for="slot of countrySelectSlots" #[slot]="scope">
+          <slot :name="slot" v-bind="scope ?? {}" />
         </template>
       </country-selection>
     </template>
-    <template v-for="slot of inputSlots" v-slot:[slot]="scope">
-      <slot :name="slot" v-bind="scope ?? {}"></slot>
+    <template v-for="slot of inputSlots" #[slot]="scope">
+      <slot :name="slot" v-bind="scope ?? {}" />
     </template>
   </q-input>
 </template>
