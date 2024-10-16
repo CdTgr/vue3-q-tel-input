@@ -58,4 +58,4 @@ export const filterCountries = (term: string): Country[] => {
   })
 }
 
-export const getProperNumber = (phone: string) => phone.match(/[\+\d]+/g)?.join('') || phone
+export const getProperNumber = (phone: string) => phone.match(/[+\d]+/g)?.join('') || phone

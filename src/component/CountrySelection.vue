@@ -8,12 +8,12 @@
     borderless
     virtual-scroll-slice-size="9999"
     class="no-inherit-feedback no-feedback v3-q-tel-input--country"
-    @update:model-value="$emit('update:country', $event)"
-    @popup-hide="searchText = ''"
     :menu-offset="[12, 0]"
     v-bind="$props"
+    @update:model-value="$emit('update:country', $event)"
+    @popup-hide="searchText = ''"
   >
-    <template v-slot:option="scope">
+    <template #option="scope">
       <div class="flex items-center q-pa-xs mdi-border-bottom no-wrap" v-bind="scope.itemProps">
         <span v-if="!!scope.opt.iso2" :class="!useIcon ? ['v3q_tel__flag', scope.opt.iso2.toLowerCase()] : 'q-mr-sm'">{{
           useIcon ? scope.opt.flag : ''
@@ -25,35 +25,35 @@
       </div>
       <q-separator />
     </template>
-    <template v-slot:selected-item="scope">
-      <div class="q-pa-none ellipsis" v-if="scope.opt" style="min-height: unset">
+    <template #selected-item="scope">
+      <div v-if="scope.opt" class="q-pa-none ellipsis" style="min-height: unset">
         <div class="flex items-center no-wrap">
           <span :class="!useIcon ? ['v3q_tel__flag q-mr-sm', scope.opt.iso2.toLowerCase()] : 'q-mr-sm'">{{
             useIcon ? scope.opt.flag : ''
           }}</span>
-          <span class="ellipsis text-no-wrap" v-html="scope.opt.dialCode"></span>
+          <span class="ellipsis text-no-wrap">{{ scope.opt.dialCode }}</span>
         </div>
       </div>
     </template>
-    <template v-slot:after-options>
+    <template #after-options>
       <div class="v3-q-tel--country-selector last-search-item q-pa-sm">
         <q-input
-          v-model="searchText"
           ref="input"
-          @update:model-value="performSearch"
+          v-model="searchText"
           dense
           outlined
           :label="searchLabel"
           class="bg-white"
+          @update:model-value="performSearch"
         >
-          <template v-slot:prepend>
+          <template #prepend>
             <q-icon :name="searchIcon ?? 'search'" />
           </template>
         </q-input>
       </div>
     </template>
-    <template v-for="(_, name) of $slots" v-slot:[name]="scope">
-      <slot :name="name" v-bind="scope ?? {}"></slot>
+    <template v-for="(_, name) of $slots" #[name]="scope">
+      <slot :name="name" v-bind="scope ?? {}" />
     </template>
   </q-select>
 </template>
@@ -69,7 +69,6 @@ type CountryOption = Country & { disabled?: boolean }
 
 export type CountryProps = {
   searchLabel?: string
-  searchText?: string
   searchIcon?: string
   noResultsText?: string
   useIcon?: boolean
@@ -77,7 +76,6 @@ export type CountryProps = {
 
 const $props = withDefaults(defineProps<CountryProps>(), {
   searchLabel: 'Search',
-  searchText: '',
   searchIcon: 'search',
   noResultsText: 'No results found',
   useIcon: false,
