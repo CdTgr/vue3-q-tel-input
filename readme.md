@@ -1,6 +1,8 @@
 ### Vue3 Quasar Telephone Input
 
-## ![Node version](https://img.shields.io/node/v/vue3-q-tel-input.svg?style=flat) ![Types](https://badgen.net/badge/types/included/green) [![](https://data.jsdelivr.com/v1/package/npm/vue3-q-tel-input/badge)](https://www.jsdelivr.com/package/npm/vue3-q-tel-input) [![](https://badgen.net/badge/github/vue3%2Dq%2Dtel%2Dinput/blue?icon=github)](https://github.com/CdTgr/vue3-q-tel-input) [![](https://badgen.net/badge/npm/vue3%2Dq%2Dtel%2Dinput/blue?icon=npm)](https://www.npmjs.com/package/vue3-q-tel-input)
+<h3 style="color:#f00;">Deprecated and moved to V2.</h3>
+
+> V1 is no longer in development.
 
 ##### VUE3-Q-TEL-INPUT
 
@@ -17,6 +19,12 @@ Embed the Gist as
 ```
 
 ---
+
+### Version 1
+
+> Recommended to upgarde to v2.
+
+For v1 documenation please refer [here](./readme-v1.md)
 
 #### Installation
 
@@ -43,7 +51,7 @@ import Vue3QTelInput from 'vue3-q-tel-input'
 Import the styles as
 
 ```
-import 'vue3-q-tel-input/dist/vue3-q-tel-input.esm.css'
+import 'vue3-q-tel-input/dist/style.css'
 ```
 
 ##### CDN
@@ -51,15 +59,15 @@ import 'vue3-q-tel-input/dist/vue3-q-tel-input.esm.css'
 ###### UNPKG
 
 ```
-http://unpkg.com/vue3-q-tel-input@latest/dist/vue3-q-tel-input.min.js
-http://unpkg.com/vue3-q-tel-input@latest/dist/vue3-q-tel-input.esm.css
+http://unpkg.com/vue3-q-tel-input@latest/dist/vue3-q-tel-input.js
+http://unpkg.com/vue3-q-tel-input@latest/dist/style.css
 ```
 
 ###### JSDELIVR
 
 ```
-https://cdn.jsdelivr.net/npm/vue3-q-tel-input@latest/dist/vue3-q-tel-input.min.js
-https://cdn.jsdelivr.net/npm/vue3-q-tel-input@latest/dist/vue3-q-tel-input.esm.css
+https://cdn.jsdelivr.net/npm/vue3-q-tel-input@latest/dist/vue3-q-tel-input.js
+https://cdn.jsdelivr.net/npm/vue3-q-tel-input@latest/dist/style.css
 ```
 
 #### Usage
@@ -107,29 +115,28 @@ _example_
 
 #### Model
 
-| Prop | Type             | Description         | Usage                            |
-| ---- | ---------------- | ------------------- | -------------------------------- |
-| tel  | string or number | The telephone value | `v-model:tel="telephone_number"` |
+| Model     | Type    | Description                               | Usage                        | Required |
+| --------- | ------- | ----------------------------------------- | ---------------------------- | -------- |
+| _default_ | string  | The telephone value                       | `v-model="telephone_number"` | ✅       |
+| country   | Country | The country object, useful to get it back | `v-model:country="country"`  | ❌       |
 
 #### Props
 
-| Prop                        | Type    | Required | Description                                                                           |
-| --------------------------- | ------- | -------- | ------------------------------------------------------------------------------------- |
-| required                    | Boolean | No       | Shows error validation when the field is empty                                        |
-| search-text                 | String  | No       | The label for the search field inside the country dropdown                            |
-| search-icon                 | String  | No       | Set the icon for the search field to something else                                   |
-| default-country             | String  | No       | The default country to load. eg: us, ae, de, in etc.                                  |
-| dropdown-options            | Obejct  | No       | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |
-| eager-validate              | Boolean | No       | Set to true if the validation needs not be run on loading                             |
-| use-icon                    | Boolean | No       | Set to use the emoji icon instead of the default flag images                          |
-| no-results-text             | String  | No       | Set a string when the search results nothing, default: 'No results found'             |
-| disableAutoCountrySelection | Boolean | No       | Prevent the input field value from changing the country selection                     |
+| Prop                           | Type    | Required | Description                                                                           |
+| ------------------------------ | ------- | -------- | ------------------------------------------------------------------------------------- |
+| required                       | Boolean | No       | Shows error validation when the field is empty                                        |
+| search-text                    | String  | No       | The label for the search field inside the country dropdown                            |
+| search-icon                    | String  | No       | Set the icon for the search field to something else                                   |
+| default-country                | String  | No       | The default country to load. eg: us, ae, de, in etc.                                  |
+| dropdown-options               | Obejct  | No       | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |
+| eager-validate                 | Boolean | No       | Set to true if the validation needs not be run on loading                             |
+| use-icon                       | Boolean | No       | Set to use the emoji icon instead of the default flag images                          |
+| no-results-text                | String  | No       | Set a string when the search results nothing, default: 'No results found'             |
+| disable-auto-country-selection | Boolean | No       | Prevent the input field value from changing the country selection                     |
 
 #### Events
 
-| Emitter    | Type    | Description                                         |
-| ---------- | ------- | --------------------------------------------------- |
-| update:tel | string  | Triggers when an update is made to the model value  |
-| input      | string  | Triggers when the input value changes               |
-| error      | boolean | true when the input is invalid and false when valid |
-| country    | Country | Gets back the object information of a country       |
+| Emitter | Type    | Description                                         |
+| ------- | ------- | --------------------------------------------------- |
+| input   | string  | Triggers when the input value changes               |
+| error   | boolean | true when the input is invalid and false when valid |

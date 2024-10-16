@@ -23,7 +23,7 @@
         @update:country="countryChanged"
       >
         <template v-for="slot of countrySelectSlots" #[slot]="scope">
-          <slot :name="slot" v-bind="scope ?? {}" />
+          <slot :name="`cs-${slot}`" v-bind="scope ?? {}" />
         </template>
       </country-selection>
     </template>
@@ -93,7 +93,7 @@ const inputSlots = computed(() => Object.keys($slots).filter(slotName => !slotNa
 const countrySelectSlots = computed(() =>
   Object.keys($slots)
     .filter(slotName => slotName.startsWith('cs-'))
-    .map(slotName => slotName.substring(3)),
+    .map(slotName => slotName.replace('cs-', '')),
 )
 
 onMounted(() => {

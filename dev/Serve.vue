@@ -10,7 +10,22 @@
           filled
           default-country="de"
           no-results-text="Sample here"
+          readonly
         />
+        <!-- <vue3-q-tel-input v-model="input" filled>
+          <template #append>
+            <q-avatar>
+              <img src="https://cdn.quasar.dev/logo-v2/svg/logo.svg" />
+            </q-avatar>
+          </template>
+        </vue3-q-tel-input>
+        <vue3-q-tel-input v-model="input" filled>
+          <template #cs-before-options>
+            <q-item>
+              <q-item-section> This renders as before-options q-select slot in country list </q-item-section>
+            </q-item>
+          </template>
+        </vue3-q-tel-input> -->
       </div>
     </div>
     <div>Entered telephone number : {{ input }}</div>
