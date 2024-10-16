@@ -8,15 +8,9 @@
 
 The plugin was made over Vue3 with considering the [Qasar Frameork v2.X](https://quasar.dev/). The plugin provides auto country detection on user inputs as well as dropdown for country which supports search by name, country code and country phone code.
 
-Live preview for the code is avaialble in [CodePen](https://codepen.io/CdTgr/full/OJEMZvG)
+Live preview for the code is avaialble in [CodePen](https://codepen.io/CdTgr/full/PoMmeRZ)
 
 Contributers are [welcome]().
-
-Embed the Gist as
-
-```
-<script src="https://gist.github.com/CdTgr/a85f5548f08db62861091c7f85566026.js"></script>
-```
 
 ---
 
@@ -24,7 +18,7 @@ Embed the Gist as
 
 > Recommended to upgarde to v2.
 
-For v1 documenation please refer [here](./readme-v1.md)
+For v1 documenation please refer [here](./docs/v1.md)
 
 #### Installation
 
@@ -140,3 +134,7 @@ _example_
 | ------- | ------- | --------------------------------------------------- |
 | input   | string  | Triggers when the input value changes               |
 | error   | boolean | true when the input is invalid and false when valid |
+
+### Credits
+
+- Project uses [REST Countries](https://restcountries.com/) for generating country list.
