@@ -30,9 +30,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/entry.ts'),
-      name: 'vue3-q-tel-input',
+      name: 'Vue3QTelInput',
       fileName: 'vue3-q-tel-input',
-      formats: ['es', 'cjs'],
+      formats: ['es', 'cjs', 'umd'],
     },
     sourcemap: false,
     minify: 'terser',
