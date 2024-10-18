@@ -1,22 +1,16 @@
-### Vue3 Quasar Telephone Input
+### Vue3 Quasar Telephone Input ( VUE3-Q-TEL-INPUT )
 
-<h3 style="color:#f00;">Deprecated and moved to V2.</h3>
+The plugin was made over Vue3 while considering the [Quasar Framework v2.X](https://quasar.dev/). The plugin provides auto country detection on user inputs as well as dropdown for country which supports search by name, country code, and country phone code.
 
-> V1 is no longer in development.
+A live preview for the code is available in [CodePen](https://codepen.io/CdTgr/full/PoMmeRZ)
 
-##### VUE3-Q-TEL-INPUT
-
-The plugin was made over Vue3 with considering the [Quasar Framework v2.X](https://quasar.dev/). The plugin provides auto country detection on user inputs as well as dropdown for country which supports search by name, country code and country phone code.
-
-Live preview for the code is available in [CodePen](https://codepen.io/CdTgr/full/PoMmeRZ)
-
-Contributers are [welcome]().
+Contributors are [welcome](https://github.com/CdTgr/vue3-q-tel-input/graphs/contributors).
 
 ---
 
 ### Version 1
 
-> Recommended to upgarde to v2.
+> Recommended to upgrade to v2.
 
 For v1 documenation please refer [here](./docs/v1.md)
 
@@ -48,62 +42,63 @@ Import the styles as
 import 'vue3-q-tel-input/dist/style.css'
 ```
 
-##### CDN
+##### CDN / UMD
 
 ###### UNPKG
 
 ```
-http://unpkg.com/vue3-q-tel-input@latest/dist/vue3-q-tel-input.js
+http://unpkg.com/vue3-q-tel-input@latest/dist/vue3-q-tel-input.umd.js
 http://unpkg.com/vue3-q-tel-input@latest/dist/style.css
 ```
 
 ###### JSDELIVR
 
 ```
-https://cdn.jsdelivr.net/npm/vue3-q-tel-input@latest/dist/vue3-q-tel-input.js
+https://cdn.jsdelivr.net/npm/vue3-q-tel-input@latest/dist/vue3-q-tel-input.umd.js
 https://cdn.jsdelivr.net/npm/vue3-q-tel-input@latest/dist/style.css
 ```
 
 #### Usage
 
 ```
-<vue3-q-tel-input v-model:tel="tel" />
+<vue3-q-tel-input v-model="tel" />
 ```
 
-All the props that are supported in [quasr input](https://quasar.dev/vue-components/input) field are available in the plugin as well.
+All the props that are supported in the [quasar input](https://quasar.dev/vue-components/input) field are available in the plugin as well.
+
 _example_
 
 ```
-<vue3-q-tel-input v-model:tel="tel" dense outlined />
+<vue3-q-tel-input v-model="tel" dense outlined />
 ```
 
-All the slots that are supported in [quasar input](https://quasar.dev/vue-components/input) field are available in the plugin as input slots. Country selection element uses `#append` slot
+All the slots that are supported in the [quasar input](https://quasar.dev/vue-components/input) field are available in the plugin as input slots. The country selection element uses `append` slot.
 
 _example_
 
 ```
 <vue3-q-tel-input>
-    <template v-slot:append>
-        <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo.svg">
-        </q-avatar>
-    </template>
+  <template v-slot:append>
+    <q-avatar>
+      <img src="https://cdn.quasar.dev/logo-v2/svg/logo.svg">
+    </q-avatar>
+  </template>
 </vue3-q-tel-input>
 ```
 
-All the slots that are supported in [quasar select](https://quasar.dev/vue-components/select) field are available in the plugin as country select control slots with prefix `cs-`.
+All the slots that are supported in [quasar select](https://quasar.dev/vue-components/select) field are available in the plugin as country select control slots with the prefix `cs-`.
 
 _example_
 
 ```
 <vue3-q-tel-input>
-    <template v-slot:cs-before-options>
-        <q-item>
-            <q-item-section>
-                This renders as before-options q-select slot in country list
-            </q-item-section>
-        </q-item>
-    </template>
+  <template v-slot:cs-before-options>
+    <q-item>
+      <q-item-section>
+        This renders as before-options q-select slot in the country list
+      </q-item-section>
+    </q-item>
+  </template>
 </vue3-q-tel-input>
 ```
 
@@ -121,9 +116,9 @@ _example_
 | required                       | Boolean | No       | Shows error validation when the field is empty                                        |
 | search-text                    | String  | No       | The label for the search field inside the country dropdown                            |
 | search-icon                    | String  | No       | Set the icon for the search field to something else                                   |
-| default-country                | String  | No       | The default country to load. eg: us, ae, de, in etc.                                  |
-| dropdown-options               | Obejct  | No       | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |
-| eager-validate                 | Boolean | No       | Set to true if the validation needs be run on loading                                 |
+| default-country                | String  | No       | The default country to load. eg: us, ae, de, in, etc.                                 |
+| dropdown-options               | Obejct  | No       | The props available for the [Quasar Select](https://quasar.dev/vue-components/select) |
+| eager-validate                 | Boolean | No       | Set to true if the validation needs to be run on loading                              |
 | use-icon                       | Boolean | No       | Set to use the emoji icon instead of the default flag images                          |
 | no-results-text                | String  | No       | Set a string when the search results nothing, default: 'No results found'             |
 | disable-auto-country-selection | Boolean | No       | Prevent the input field value from changing the country selection                     |
@@ -138,3 +133,4 @@ _example_
 ### Credits
 
 - Project uses [REST Countries](https://restcountries.com/) for generating country list.
+- Thanks to the [people](https://github.com/CdTgr/vue3-q-tel-input/graphs/contributors) who have already contributed to the project
