@@ -6,9 +6,9 @@
 
 ##### VUE3-Q-TEL-INPUT
 
-The plugin was made over Vue3 with considering the [Qasar Frameork v2.X](https://quasar.dev/). The plugin provides auto country detection on user inputs as well as dropdown for country which supports search by name, country code and country phone code.
+The plugin was made over Vue3 with considering the [Quasar Framework v2.X](https://quasar.dev/). The plugin provides auto country detection on user inputs as well as dropdown for country which supports search by name, country code and country phone code.
 
-Live preview for the code is avaialble in [CodePen](https://codepen.io/CdTgr/full/PoMmeRZ)
+Live preview for the code is available in [CodePen](https://codepen.io/CdTgr/full/PoMmeRZ)
 
 Contributers are [welcome]().
 
@@ -123,7 +123,7 @@ _example_
 | search-icon                    | String  | No       | Set the icon for the search field to something else                                   |
 | default-country                | String  | No       | The default country to load. eg: us, ae, de, in etc.                                  |
 | dropdown-options               | Obejct  | No       | The props availalbe for the [Quasar Select](https://quasar.dev/vue-components/select) |
-| eager-validate                 | Boolean | No       | Set to true if the validation needs not be run on loading                             |
+| eager-validate                 | Boolean | No       | Set to true if the validation needs be run on loading                                 |
 | use-icon                       | Boolean | No       | Set to use the emoji icon instead of the default flag images                          |
 | no-results-text                | String  | No       | Set a string when the search results nothing, default: 'No results found'             |
 | disable-auto-country-selection | Boolean | No       | Prevent the input field value from changing the country selection                     |
