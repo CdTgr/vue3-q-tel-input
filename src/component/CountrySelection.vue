@@ -1,5 +1,6 @@
 <template>
   <q-select
+    v-bind="$props"
     :model-value="country"
     :options="countryOptions"
     :option-disable="isDisabled"
@@ -8,10 +9,11 @@
     borderless
     virtual-scroll-slice-size="9999"
     class="no-inherit-feedback no-feedback v3-q-tel-input--country"
+    :class="$props.class"
     :menu-offset="[12, 0]"
-    v-bind="$props"
     @update:model-value="$emit('update:country', $event)"
     @popup-hide="searchText = ''"
+    @popup-show="focusInput"
   >
     <template #option="scope">
       <div class="flex items-center q-pa-xs mdi-border-bottom no-wrap" v-bind="scope.itemProps">
@@ -38,13 +40,13 @@
     <template #after-options>
       <div class="v3-q-tel--country-selector last-search-item q-pa-sm">
         <q-input
-          ref="input"
           v-model="searchText"
           dense
           outlined
           :label="searchLabel"
           class="bg-white"
           @update:model-value="performSearch"
+          ref="searchInput"
         >
           <template #prepend>
             <q-icon :name="searchIcon ?? 'search'" />
@@ -59,22 +61,36 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { nextTick, ref, watch } from 'vue'
 import countries, { filterCountries } from './countries'
 import { Country } from './types'
-import type { QSelectSlots } from 'quasar'
+import type { QSelectProps, QSelectSlots, VueClassProp } from 'quasar'
 import { QSelect, QIcon, QSeparator, QInput } from 'quasar'
 
 type CountryOption = Country & { disabled?: boolean }
 
-export type CountryProps = {
+export type CountrySelectionProps = {
   searchLabel?: string
   searchIcon?: string
   noResultsText?: string
   useIcon?: boolean
-}
+  autofocusInput?: boolean
+  class?: VueClassProp
+} & Omit<
+  QSelectProps,
+  | 'modelValue'
+  | 'update:modelValue'
+  | 'options'
+  | 'hide-bottom-space'
+  | 'hide-dropdown-icon'
+  | 'borderless'
+  | 'borderless'
+  | 'virtual-scroll-slice-size'
+  | 'popup-hide'
+  | 'popup-show'
+>
 
-const $props = withDefaults(defineProps<CountryProps>(), {
+const $props = withDefaults(defineProps<CountrySelectionProps>(), {
   searchLabel: 'Search',
   searchIcon: 'search',
   noResultsText: 'No results found',
@@ -89,6 +105,16 @@ const country = defineModel<Country>('country', {
 
 const searchText = ref('')
 const countryOptions = ref<CountryOption[]>([...countries])
+const searchInput = ref<QInput>()
+
+const focusInput = () => {
+  nextTick(() => {
+    console.log('focusInput', searchInput.value, $props.autofocusInput)
+    if ($props.autofocusInput && searchInput.value) {
+      searchInput.value.focus()
+    }
+  })
+}
 
 const performSearch = () => {
   const needle = searchText.value.toLowerCase().trim()
