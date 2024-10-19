@@ -109,7 +109,6 @@ const searchInput = ref<QInput>()
 
 const focusInput = () => {
   nextTick(() => {
-    console.log('focusInput', searchInput.value, $props.autofocusInput)
     if ($props.autofocusInput && searchInput.value) {
       searchInput.value.focus()
     }
