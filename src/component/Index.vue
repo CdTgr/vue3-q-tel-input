@@ -4,6 +4,7 @@
     v-model="dial"
     :error="hasError"
     class="vue3-q-tel-input no-inherit-feedback"
+    :class="$props.class"
     type="tel"
     @update:model-value="phoneChanged()"
     ref="input"
@@ -40,7 +41,7 @@ import type { CountrySelectionProps } from './CountrySelection.vue'
 import { Country } from './types'
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js'
 import { getCountryByDialCode, getDefault, getProperNumber } from './countries'
-import { QInput, QInputProps, useFormChild } from 'quasar'
+import { QInput, QInputProps, useFormChild, VueClassProp } from 'quasar'
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 
 const DEFAULT_COUNTRY = 'de'
@@ -59,7 +60,8 @@ export type Vue3QTelInputProps = {
   dense?: boolean
   disable?: boolean
   disableAutoCountrySelection?: boolean
-} & QInputProps
+  class?: VueClassProp
+} & Omit<QInputProps, 'error' | 'type'>
 
 const $props = withDefaults(defineProps<Vue3QTelInputProps>(), {
   required: false,
