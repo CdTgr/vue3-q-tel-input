@@ -1,13 +1,13 @@
 <template>
   <q-input
     v-bind="$props"
+    ref="input"
     v-model="dial"
     :error="hasError"
     class="vue3-q-tel-input no-inherit-feedback"
     :class="$props.class"
     type="tel"
     @update:model-value="phoneChanged()"
-    ref="input"
   >
     <template #prepend>
       <country-selection
@@ -77,6 +77,7 @@ const $props = withDefaults(defineProps<Vue3QTelInputProps>(), {
   dense: false,
   disable: false,
   disableAutoCountrySelection: false,
+  class: () => [],
 })
 
 const $model = defineModel<string>({

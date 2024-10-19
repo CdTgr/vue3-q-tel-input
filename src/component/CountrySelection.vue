@@ -40,13 +40,13 @@
     <template #after-options>
       <div class="v3-q-tel--country-selector last-search-item q-pa-sm">
         <q-input
+          ref="searchInput"
           v-model="searchText"
           dense
           outlined
           :label="searchLabel"
           class="bg-white"
           @update:model-value="performSearch"
-          ref="searchInput"
         >
           <template #prepend>
             <q-icon :name="searchIcon ?? 'search'" />
@@ -95,6 +95,7 @@ const $props = withDefaults(defineProps<CountrySelectionProps>(), {
   searchIcon: 'search',
   noResultsText: 'No results found',
   useIcon: false,
+  class: () => [],
 })
 
 const $slots = defineSlots<Omit<QSelectSlots, 'default' | 'selected-item' | 'option' | 'after-options'>>()
