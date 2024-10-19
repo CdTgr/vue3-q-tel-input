@@ -4,21 +4,22 @@
     v-model="dial"
     :error="hasError"
     class="vue3-q-tel-input no-inherit-feedback"
-    :maxlength="prevValue.length"
     type="tel"
     @update:model-value="phoneChanged()"
+    ref="input"
   >
     <template #prepend>
       <country-selection
-        :use-icon="useIcon"
-        :search-text="searchText"
-        :search-icon="searchIcon"
+        :use-icon="$props.useIcon"
+        :search-text="$props.searchText"
+        :search-icon="$props.searchIcon"
         :country="countryModel"
-        :readonly="readonly"
-        :disable="disable"
-        :dense="dense"
-        :no-results-text="noResultsText"
-        v-bind="dropdownOptions"
+        :readonly="$props.readonly"
+        :disable="$props.disable"
+        :dense="$props.dense"
+        :no-results-text="$props.noResultsText"
+        :autofocus-input="$props.autofocusInput"
+        v-bind="$props.dropdownOptions"
         class="no-border-field-before no-padding-field font-reduced-input-adon"
         @update:country="countryChanged"
       >
@@ -35,10 +36,11 @@
 
 <script lang="ts" setup>
 import CountrySelection from './CountrySelection.vue'
+import type { CountrySelectionProps } from './CountrySelection.vue'
 import { Country } from './types'
-import { CountryCode, isValidPhoneNumber, parsePhoneNumber } from 'libphonenumber-js'
+import { CountryCode, parsePhoneNumber } from 'libphonenumber-js'
 import { getCountryByDialCode, getDefault, getProperNumber } from './countries'
-import { QInput } from 'quasar'
+import { QInput, QInputProps, useFormChild } from 'quasar'
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 
 const DEFAULT_COUNTRY = 'de'
@@ -47,16 +49,17 @@ export type Vue3QTelInputProps = {
   required?: boolean
   searchText?: string
   searchIcon?: string
-  dropdownOptions?: Record<string, unknown> // TODO: rewise later
+  dropdownOptions?: CountrySelectionProps
   noResultsText?: string
   defaultCountry?: string
   eagerValidate?: boolean
   useIcon?: boolean
+  autofocusInput?: boolean
   readonly?: boolean
   dense?: boolean
   disable?: boolean
   disableAutoCountrySelection?: boolean
-}
+} & QInputProps
 
 const $props = withDefaults(defineProps<Vue3QTelInputProps>(), {
   required: false,
@@ -67,6 +70,7 @@ const $props = withDefaults(defineProps<Vue3QTelInputProps>(), {
   defaultCountry: DEFAULT_COUNTRY,
   eagerValidate: false,
   useIcon: false,
+  autofocusInput: false,
   readonly: false,
   dense: false,
   disable: false,
@@ -84,10 +88,10 @@ const $emit = defineEmits<{
 
 const $slots = defineSlots()
 
+const input = ref<QInput>()
 const countryModel = defineModel<Country>('country', { default: () => getDefault(DEFAULT_COUNTRY) })
 const dial = ref('')
 const hasError = ref(false)
-const prevValue = ref('01234567890123456789')
 
 const inputSlots = computed(() => Object.keys($slots).filter(slotName => !slotName.startsWith('cs-')))
 const countrySelectSlots = computed(() =>
@@ -112,22 +116,36 @@ const completeNumber = computed(() => {
   return getProperNumber(`+${dial.value}`)
 })
 
-const isValid = computed(() => {
-  if (!countryModel.value) {
+const _validate = (force = false) => {
+  hasError.value = false
+
+  if (!countryModel.value || !dial.value) {
+    if ($props.eagerValidate) {
+      hasError.value = true
+      $emit('error', true)
+    }
     return false
   }
 
-  try {
-    const parser = parsePhoneNumber(completeNumber.value, countryModel.value.iso2 as CountryCode)
-    return isValidPhoneNumber(parser.formatInternational(), countryModel.value.iso2 as CountryCode)
-  } catch {}
+  const isValid = (() => {
+    try {
+      return parsePhoneNumber(completeNumber.value, countryModel.value.iso2 as CountryCode).isValid()
+    } catch {}
 
-  return false
-})
+    return false
+  })()
+
+  if (force || $props.eagerValidate) {
+    hasError.value = !isValid
+    $emit('error', !isValid)
+  }
+
+  return isValid
+}
 
 const phoneChanged = () => {
   if (!dial.value) {
-    return
+    return _validate()
   }
 
   const determinedCountry = getCountryByDialCode(completeNumber.value)
@@ -143,6 +161,8 @@ const phoneChanged = () => {
       $model.value = parsedNumber.formatInternational()
     }
   }
+
+  return _validate()
 }
 
 const countryChanged = (selectedCountry: Country) => {
@@ -167,15 +187,6 @@ watch(
 )
 
 watch(
-  () => isValid.value,
-  () => {
-    hasError.value = !isValid.value
-    $emit('error', !isValid.value)
-  },
-  { immediate: $props.eagerValidate },
-)
-
-watch(
   () => $props.defaultCountry,
   () => {
     if ($props.defaultCountry) {
@@ -184,6 +195,27 @@ watch(
   },
   { immediate: true },
 )
+
+// Providing native q-input support and also for using inside `q-form`
+const resetValidation = () => {
+  hasError.value = false
+  $emit('error', false)
+  input.value?.resetValidation()
+}
+useFormChild({
+  validate: () => _validate(true),
+  resetValidation,
+  requiresQForm: false,
+})
+defineExpose({
+  validate: () => _validate(true),
+  resetValidation,
+  select: input.value?.select,
+  blur: input.value?.blur,
+  focus: input.value?.focus,
+  hasError,
+  nativeEl: input.value?.$el as Element,
+})
 </script>
 
 <style lang="scss">

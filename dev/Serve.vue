@@ -10,23 +10,28 @@
           filled
           default-country="de"
           no-results-text="Sample here"
+          autofocus-input
+          use-icon
+          eager-validate
+          :rules="[val => !!val || 'Required']"
         />
         <!-- <vue3-q-tel-input v-model="input" filled>
-          <template #append>
-            <q-avatar>
-              <img src="https://cdn.quasar.dev/logo-v2/svg/logo.svg" />
-            </q-avatar>
-          </template>
-        </vue3-q-tel-input>
-        <vue3-q-tel-input v-model="input" filled>
-          <template #cs-before-options>
-            <q-item>
-              <q-item-section> This renders as before-options q-select slot in country list </q-item-section>
-            </q-item>
-          </template>
-        </vue3-q-tel-input> -->
+            <template #append>
+              <q-avatar>
+                <img src="https://cdn.quasar.dev/logo-v2/svg/logo.svg" />
+              </q-avatar>
+            </template>
+          </vue3-q-tel-input>
+          <vue3-q-tel-input v-model="input" filled>
+            <template #cs-before-options>
+              <q-item>
+                <q-item-section> This renders as before-options q-select slot in country list </q-item-section>
+              </q-item>
+            </template>
+          </vue3-q-tel-input> -->
       </div>
     </div>
+
     <div>Entered telephone number : {{ input }}</div>
     <div>
       Country :
@@ -39,6 +44,10 @@
 import Vue3QTelInput from '@/component/Index.vue'
 import { ref } from 'vue'
 
-const input = ref('+12122066540')
+const input = ref('+91956277465')
 const country = ref()
+
+const trySubmit = () => {
+  console.log('Submitted')
+}
 </script>

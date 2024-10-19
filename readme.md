@@ -122,6 +122,7 @@ _example_
 | use-icon                       | Boolean | No       | Set to use the emoji icon instead of the default flag images                          |
 | no-results-text                | String  | No       | Set a string when the search results nothing, default: 'No results found'             |
 | disable-auto-country-selection | Boolean | No       | Prevent the input field value from changing the country selection                     |
+| autofocus-input                | Boolean | No       | Focus automatically to the search input when country selection is opened              |
 
 #### Events
 
