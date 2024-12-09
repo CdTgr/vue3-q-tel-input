@@ -96,7 +96,6 @@ export const countryInformation: Country[] = [
     invalid: false,
   },
   { name: 'Norfolk Island', iso2: 'NF', dialCode: '+672', dialCodeSuffixes: [], flag: '🇳🇫', invalid: false },
-  { name: 'Bouvet Island', iso2: 'BV', dialCode: '+47', dialCodeSuffixes: [], flag: '🇧🇻', invalid: false },
   { name: 'Qatar', iso2: 'QA', dialCode: '+974', dialCodeSuffixes: [], flag: '🇶🇦', invalid: false },
   { name: 'Madagascar', iso2: 'MG', dialCode: '+261', dialCodeSuffixes: [], flag: '🇲🇬', invalid: false },
   { name: 'India', iso2: 'IN', dialCode: '+91', dialCodeSuffixes: [], flag: '🇮🇳', invalid: false },
