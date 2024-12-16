@@ -9,8 +9,8 @@ type RestCountry = {
     nativeName: Record<
       string,
       {
-        official: 'República de Nicaragua'
-        common: 'Nicaragua'
+        official: string
+        common: string
       }
     >
   }
