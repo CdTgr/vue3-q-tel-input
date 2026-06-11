@@ -30,7 +30,9 @@
         >
           {{ useIcon ? scope.opt.flag : '' }}
         </span>
-        <span v-if="!!scope.opt.dialCode" class="q-ml-sm text-no-wrap">({{ scope.opt.dialCode }})</span>
+        <span v-if="!!scope.opt.dialCode" class="q-ml-sm text-no-wrap">
+          ({{ scope.opt.dialCode }})
+        </span>
         <span
           :class="[
             'q-ml-sm text-no-wrap ellipsis',
