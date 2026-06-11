@@ -13,7 +13,7 @@
           autofocus-input
           use-icon
           eager-validate
-          :rules="[val => !!val || 'Required']"
+          :rules="[(val) => !!val || 'Required']"
         />
         <!-- <vue3-q-tel-input v-model="input" filled>
             <template #append>
@@ -44,10 +44,6 @@
 import Vue3QTelInput from '@/component/Index.vue'
 import { ref } from 'vue'
 
-const input = ref('+91956277465')
+const input = ref('+911234567890')
 const country = ref()
-
-const trySubmit = () => {
-  console.log('Submitted')
-}
 </script>
