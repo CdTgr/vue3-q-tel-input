@@ -2,26 +2,20 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "skipLibCheck": true,
     "strict": true,
     "declaration": true,
-    "noImplicitAny": true,
-    "declarationDir": "dist",
     "outDir": "dist",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "rootDir": "./src",
     "importHelpers": true,
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "baseUrl": ".",
-    "types": ["vue"],
+    "resolveJsonModule": true,
     "paths": {
-      "@/*": ["src/*"],
-      "rollup/parseAst": ["./node_modules/rollup/dist/parseAst"]
-    },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src"]
 }
