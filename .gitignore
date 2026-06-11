@@ -6,3 +6,4 @@ package-json.lock
 yarn-error.log
 .yarn
 .DS_Store
+*.tsbuildinfo

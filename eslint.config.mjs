@@ -21,6 +21,10 @@ export default ts.config(
       'vue/multi-word-component-names': 'off',
       'no-empty': ['error', { allowEmptyCatch: true }],
       '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/no-unused-expressions': [
+        'error',
+        { allowShortCircuit: true, allowTernary: true },
+      ],
       'vue/max-attributes-per-line': 'off',
     },
   },

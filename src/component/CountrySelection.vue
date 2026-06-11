@@ -16,23 +16,48 @@
     @popup-show="focusInput"
   >
     <template #option="scope">
-      <div class="flex items-center q-pa-xs mdi-border-bottom no-wrap" v-bind="scope.itemProps">
-        <span v-if="!!scope.opt.iso2" :class="!useIcon ? ['v3q_tel__flag', scope.opt.iso2.toLowerCase()] : 'q-mr-sm'">{{
-          useIcon ? scope.opt.flag : ''
-        }}</span>
+      <div
+        class="flex items-center q-pa-xs mdi-border-bottom no-wrap"
+        v-bind="scope.itemProps"
+      >
+        <span
+          v-if="!!scope.opt.iso2"
+          :class="
+            !useIcon
+              ? ['v3q_tel__flag', scope.opt.iso2.toLowerCase()]
+              : 'q-mr-sm'
+          "
+        >
+          {{ useIcon ? scope.opt.flag : '' }}
+        </span>
         <span v-if="!!scope.opt.dialCode" class="q-ml-sm text-no-wrap">({{ scope.opt.dialCode }})</span>
-        <span :class="['q-ml-sm text-no-wrap ellipsis', { 'disabled full-width text-center': scope.opt.disabled }]">{{
-          scope.opt.name
-        }}</span>
+        <span
+          :class="[
+            'q-ml-sm text-no-wrap ellipsis',
+            { 'disabled full-width text-center': scope.opt.disabled },
+          ]"
+        >
+          {{ scope.opt.name }}
+        </span>
       </div>
       <q-separator />
     </template>
     <template #selected-item="scope">
-      <div v-if="scope.opt" class="q-pa-none ellipsis" style="min-height: unset">
+      <div
+        v-if="scope.opt"
+        class="q-pa-none ellipsis"
+        style="min-height: unset"
+      >
         <div class="flex items-center no-wrap">
-          <span :class="!useIcon ? ['v3q_tel__flag q-mr-sm', scope.opt.iso2.toLowerCase()] : 'q-mr-sm'">{{
-            useIcon ? scope.opt.flag : ''
-          }}</span>
+          <span
+            :class="
+              !useIcon
+                ? ['v3q_tel__flag q-mr-sm', scope.opt.iso2.toLowerCase()]
+                : 'q-mr-sm'
+            "
+          >
+            {{ useIcon ? scope.opt.flag : '' }}
+          </span>
           <span class="ellipsis text-no-wrap">{{ scope.opt.dialCode }}</span>
         </div>
       </div>
@@ -98,7 +123,10 @@ const $props = withDefaults(defineProps<CountrySelectionProps>(), {
   class: () => [],
 })
 
-const $slots = defineSlots<Omit<QSelectSlots, 'default' | 'selected-item' | 'option' | 'after-options'>>()
+const $slots =
+  defineSlots<
+    Omit<QSelectSlots, 'default' | 'selected-item' | 'option' | 'after-options'>
+  >()
 
 const country = defineModel<Country>('country', {
   required: true,
@@ -118,7 +146,8 @@ const focusInput = () => {
 
 const performSearch = () => {
   const needle = searchText.value.toLowerCase().trim()
-  const newCountries: CountryOption[] = needle === '' ? countries.concat() : filterCountries(needle)
+  const newCountries: CountryOption[] =
+    needle === '' ? countries.concat() : filterCountries(needle)
 
   if (newCountries.length === 0) {
     newCountries.push({
@@ -152,16 +181,18 @@ watch(
 </script>
 
 <style lang="scss">
-@import '../styles/flags';
+@use '../styles/flags';
 
 .v3-q-tel-input--country {
   // Quasar overrides
   .q-field__control {
     background: none !important;
+
     &::before {
       display: none !important;
     }
   }
+
   .q-field__input {
     border: none !important;
   }
@@ -174,6 +205,7 @@ watch(
   left: 0 !important;
   right: 0 !important;
 }
+
 .mdi-border-bottom::before {
   content: '';
 }

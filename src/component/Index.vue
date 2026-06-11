@@ -92,15 +92,19 @@ const $emit = defineEmits<{
 const $slots = defineSlots()
 
 const input = ref<QInput>()
-const countryModel = defineModel<Country>('country', { default: () => getDefault(DEFAULT_COUNTRY) })
+const countryModel = defineModel<Country>('country', {
+  default: () => getDefault(DEFAULT_COUNTRY),
+})
 const dial = ref('')
 const hasError = ref(false)
 
-const inputSlots = computed(() => Object.keys($slots).filter(slotName => !slotName.startsWith('cs-')))
+const inputSlots = computed(() =>
+  Object.keys($slots).filter((slotName) => !slotName.startsWith('cs-')),
+)
 const countrySelectSlots = computed(() =>
   Object.keys($slots)
-    .filter(slotName => slotName.startsWith('cs-'))
-    .map(slotName => slotName.replace('cs-', '')),
+    .filter((slotName) => slotName.startsWith('cs-'))
+    .map((slotName) => slotName.replace('cs-', '')),
 )
 
 onMounted(() => {
@@ -132,7 +136,10 @@ const _validate = (force = false) => {
 
   const isValid = (() => {
     try {
-      return parsePhoneNumber(completeNumber.value, countryModel.value.iso2 as CountryCode).isValid()
+      return parsePhoneNumber(
+        completeNumber.value,
+        countryModel.value.iso2 as CountryCode,
+      ).isValid()
     } catch {}
 
     return false
@@ -155,7 +162,10 @@ const phoneChanged = () => {
   if (determinedCountry) {
     const parsedNumber = (() => {
       try {
-        return parsePhoneNumber(completeNumber.value, determinedCountry.iso2 as CountryCode)
+        return parsePhoneNumber(
+          completeNumber.value,
+          determinedCountry.iso2 as CountryCode,
+        )
       } catch {}
     })()
     if (parsedNumber) {
@@ -222,5 +232,5 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import '../style';
+@use '../style';
 </style>

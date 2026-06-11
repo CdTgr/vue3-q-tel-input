@@ -1,3 +1,3 @@
-@import './quasar.variables.scss';
-@import '~quasar-styl';
-// @import '~quasar-addon-styl';
+@use './quasar.variables.scss' as *;
+@use 'quasar/dist/quasar.sass';
+// @use '~quasar-addon-styl';
